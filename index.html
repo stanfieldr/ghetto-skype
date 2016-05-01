@@ -21,18 +21,13 @@
 			var title     = document.getElementsByTagName('title')[0];
 			var notificationRegex = /^\((\d+)\)/;
 
-			skypeView.addEventListener('dom-ready', function() {
-				title.innerHTML = skypeView.getTitle();
-			});
-
 			skypeView.addEventListener('page-title-updated', function(event) {
-				var result = notificationRegex.exec(event.title);
-				console.log(event.title);
+				title.innerHTML = skypeView.getTitle();
 
+				let result = notificationRegex.exec(event.title);
 				if (result !== null && result.length === 2) {
 					TrayIcon.setNotificationCount(Number(result[1]));
 				} else {
-					console.log('sending 0');
 					TrayIcon.setNotificationCount(0);
 				}
 			});

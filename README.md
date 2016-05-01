@@ -15,7 +15,6 @@ npm start
 - Electron works with Web Skypes notification system for messages
 
 ## TODO
-- Tray Icon should show amount of notifications
 - Need to figure out how to auto sign in
 
 ### Disclaimer
