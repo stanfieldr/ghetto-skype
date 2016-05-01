@@ -18,14 +18,17 @@ exports.setNotificationCount = function(count) {
 	trayIcon.setImage(image);
 };
 
-function open() {
-	mainWindow.focus();
+function toggleOpen() {
+	if (mainWindow.isFocused())
+		mainWindow.hide();
+	else
+		mainWindow.show();
 }
 
 let contextMenu = new electron.Menu.buildFromTemplate([
 	{
 		label: "Open",
-		click: open
+		click: () => mainWindow.focus()
 	},
 	{
 		label: "Exit",
@@ -35,5 +38,5 @@ let contextMenu = new electron.Menu.buildFromTemplate([
 	}
 ]);
 
-trayIcon.on('click', open);
+trayIcon.on('click', toggleOpen);
 trayIcon.setContextMenu(contextMenu);
