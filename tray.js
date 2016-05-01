@@ -30,7 +30,7 @@ let contextMenu = new electron.Menu.buildFromTemplate([
 	{
 		label: "Exit",
 		click: function() {
-			app.quit();
+			electron.app.quit();
 		}
 	}
 ]);
