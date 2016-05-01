@@ -1,0 +1,28 @@
+{
+  "name": "ghetto-skype",
+  "version": "1.0.0",
+  "description": "Web Skype + Tray Icon + notify-send",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stanfieldr/ghetto-skype.git"
+  },
+  "keywords": [
+    "web",
+    "skype",
+    "wrapper"
+  ],
+  "author": "Robert Stanfield",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/stanfieldr/ghetto-skype/issues"
+  },
+  "homepage": "https://github.com/stanfieldr/ghetto-skype#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^0.37.8"
+  }
+}

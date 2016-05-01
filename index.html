@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Skype</title>
+		<style>
+			html, body, webview {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<webview id="skype-view" src="https://web.skype.com/en"></webview>
+		<script>
+			var remote    = require('remote');
+			var TrayIcon  = remote.require('./tray');
+			var skypeView = document.getElementById('skype-view');
+			var title     = document.getElementsByTagName('title')[0];
+			var notificationRegex = /^\((\d+)\)/;
+
+			skypeView.addEventListener('dom-ready', function() {
+				title.innerHTML = skypeView.getTitle();
+			});
+
+			skypeView.addEventListener('page-title-updated', function(event) {
+				var result = notificationRegex.exec(event.title);
+				console.log(event.title);
+
+				if (result !== null && result.length === 2) {
+					TrayIcon.setNotificationCount(Number(result[1]));
+				} else {
+					console.log('sending 0');
+					TrayIcon.setNotificationCount(0);
+				}
+			});
+
+			skypeView.addEventListener('console-message', function(e) {
+				console.log(e.message);
+			});
+		</script>
+	</body>
+</html>
