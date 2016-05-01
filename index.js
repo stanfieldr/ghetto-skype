@@ -6,7 +6,8 @@ app.on('ready', function() {
 	let mainWindow = new BrowserWindow({
 		autoHideMenuBar: true,
 		center: true,
-		closable: false
+		closable: false,
+		icon: './skype.png'
 	});
 
 	const TrayIcon = require('./tray');
