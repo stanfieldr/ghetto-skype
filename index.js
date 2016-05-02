@@ -1,6 +1,7 @@
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = require('browser-window');
+const Settings = require('./settings');
 
 app.on('ready', function() {
 	let isQuiting = false;
@@ -8,6 +9,7 @@ app.on('ready', function() {
 		autoHideMenuBar: true,
 		center: true,
 		closable: false,
+		show: !Settings.startMinimized,
 		icon: './skype.png'
 	});
 
