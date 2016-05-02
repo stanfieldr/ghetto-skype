@@ -32,8 +32,11 @@
 				}
 			});
 
-			skypeView.addEventListener('console-message', function(e) {
-				console.log(e.message);
+			skypeView.addEventListener('new-window', function(e) {
+				var protocol = require('url').parse(e.url).protocol;
+				if (protocol === 'http:' || protocol === 'https:') {
+					require('electron').shell.openExternal(e.url);
+				}
 			});
 		</script>
 	</body>
