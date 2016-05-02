@@ -1,3 +1,4 @@
 {
-	"startMinimized": false
+	"startMinimized": true,
+	"microsoftAccount": false
 }
