@@ -3,20 +3,25 @@ Are you tired of a dinosaur program? Do you hate clicking picture links? Does Sk
 
 ## Installing
 
-First please make sure you have node and npm installed first.
+First please make sure you have node and npm installed.
 
 ```bash
+# By default, the installation directory is `/opt/ghetto-skype`.
+# Change this in Makefile if you want to store it elsewhere before running.
 sudo make install
 
 # to uninstall
 # sudo make uninstall
 ```
 
-If you need to update, it is recommended to `git pull` in the installation directory (default is `/opt/ghetto-skype`). This way you keep your settings file and are alerted of any conflicts if settings have changed.
+You may delete this folder after you run `make install`, you can run `make uninstall` from the installation directory after you trash this one.
+
+If you need to update, it is recommended to `git pull` in the installation directory. This way you keep your settings file and are alerted of any conflicts if settings have changed.
 
 Here are a few options that can be set in `settings.json`:
-1. startMinimized - When skype is launched, it's hidden in the tray till you click it
-2. microsoftAccount - By pass skype login form and proceeds to login or ask for Microsoft credentials.
+
+- startMinimized - When skype is launched, it's hidden in the tray till you click it
+- microsoftAccount - By pass skype login form and proceeds to login or ask for Microsoft credentials.
 
 Remember, edit the settings in the installation directory, not the folder you downloaded!
 
