@@ -1,7 +1,8 @@
-const electron = require('electron');
-const app = electron.app;
+const electron      = require('electron');
+const app           = electron.app;
 const BrowserWindow = require('browser-window');
-const Settings = require('./settings');
+const Settings      = require('./settings');
+const TrayIcon      = require('./tray');
 
 app.on('ready', function() {
 	let isQuiting = false;
@@ -10,7 +11,7 @@ app.on('ready', function() {
 		center: true,
 		closable: false,
 		show: !Settings.startMinimized,
-		icon: './skype.png'
+		icon: 'assets/tray/skype.png'
 	});
 
 	app.on('before-quit', function(e) {
@@ -24,8 +25,6 @@ app.on('ready', function() {
 		}
 	});
 
-	const TrayIcon = require('./tray');
-	TrayIcon.setMainWindow(mainWindow);
-
-	mainWindow.loadURL('file://' + __dirname + '/index.html');
+	TrayIcon.init(mainWindow);
+	mainWindow.loadURL('file://' + __dirname + '/views/skype.html');
 });

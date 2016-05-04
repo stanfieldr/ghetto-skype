@@ -30,7 +30,7 @@ Remember, edit the settings in the installation directory, not the folder you do
 - Native notifications from Web Skype via Electron
 - Auto login through Microsoft Account
 
-![Screenshot](screenshot.png)
+![Screenshot](assets/screenshot.png)
 
 ## Disclaimer
 The Skype name, associated trade marks and logos and the "S" logo are trade marks of Skype or related entities.

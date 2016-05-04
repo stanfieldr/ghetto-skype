@@ -1,18 +1,22 @@
 let electron   = require('electron');
-let trayIcon   = new electron.Tray('./skype.png');
+let trayIcon   = null;
 let mainWindow = null;
 
-exports.setMainWindow = function(window) {
+exports.init = function(window) {
 	mainWindow = window;
+	trayIcon   = new electron.Tray('assets/tray/skype.png');
+
+	trayIcon.on('click', toggleOpen);
+	trayIcon.setContextMenu(contextMenu);
 }
 
 exports.setNotificationCount = function(count) {
 	let image;
 
 	if (count > 0) {
-		image = './skype-1.png';
+		image = 'assets/tray/skype-1.png';
 	} else {
-		image = './skype.png';
+		image = 'assets/tray/skype.png';
 	}
 
 	trayIcon.setImage(image);
@@ -37,6 +41,3 @@ let contextMenu = new electron.Menu.buildFromTemplate([
 		}
 	}
 ]);
-
-trayIcon.on('click', toggleOpen);
-trayIcon.setContextMenu(contextMenu);

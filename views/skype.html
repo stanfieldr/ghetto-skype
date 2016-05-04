@@ -18,9 +18,11 @@
 			var url       = require('url');
 			var remote    = require('remote');
 			var TrayIcon  = remote.require('./tray');
-			var Settings  = require('./settings');
+			var Settings  = require('../settings');
+
 			var skypeView = document.getElementById('skype-view');
-			var title     = document.getElementsByTagName('title')[0];
+			var title     = document.querySelector('title');
+
 			var notificationRegex = /^\((\d+)\)/;
 
 			skypeView.addEventListener('page-title-updated', function(event) {
