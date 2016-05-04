@@ -32,7 +32,7 @@ function toggleOpen() {
 let contextMenu = new electron.Menu.buildFromTemplate([
 	{
 		label: "Open",
-		click: () => mainWindow.focus()
+		click: () => mainWindow.show()
 	},
 	{
 		label: "Exit",
