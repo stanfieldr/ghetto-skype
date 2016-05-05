@@ -4,7 +4,7 @@ install:
 	mkdir -p $(INSTALLDIR)
 	cp -p -f -R . $(INSTALLDIR)
 	npm install --prefix $(INSTALLDIR)
-	ln -sfn $(INSTALLDIR)/skype.desktop /usr/share/applications/ghetto-skype.desktop
+	ln -sfn $(INSTALLDIR)/assets/skype.desktop /usr/share/applications/ghetto-skype.desktop
 
 uninstall:
 	rm -rf $(INSTALLDIR)
