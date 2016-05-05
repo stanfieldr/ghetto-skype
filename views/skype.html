@@ -14,51 +14,6 @@
 	</head>
 	<body>
 		<webview id="skype-view" src="https://web.skype.com/en"></webview>
-		<script>
-			var url       = require('url');
-			var remote    = require('remote');
-			var TrayIcon  = remote.require('./tray');
-			var Settings  = require('../settings');
-
-			var skypeView = document.getElementById('skype-view');
-			var title     = document.querySelector('title');
-
-			var notificationRegex = /^\((\d+)\)/;
-
-			skypeView.addEventListener('page-title-updated', function(event) {
-				title.innerHTML = event.title;
-
-				// Check if they're logging in with a Microsoft account
-				let currentURL = url.parse(skypeView.getURL(), true);
-				if (Settings.microsoftAccount && currentURL.hostname === "login.skype.com" && currentURL.query.client_id) {
-					let oathURL = [
-						"https://login.skype.com/login/oauth/microsoft?mssso=1&client_id=",
-						currentURL.query.client_id,
-						"&redirect_uri=https://web.skype.com/"
-					].join('');
-
-					// Microsoft accounts login through oath
-					skypeView.loadURL(oathURL, {
-						httpReferrer: currentURL
-					});
-
-					return;
-				}
-
-				let result = notificationRegex.exec(event.title);
-				if (result !== null && result.length === 2) {
-					TrayIcon.setNotificationCount(Number(result[1]));
-				} else {
-					TrayIcon.setNotificationCount(0);
-				}
-			});
-
-			skypeView.addEventListener('new-window', function(e) {
-				var protocol = url.parse(e.url).protocol;
-				if (protocol === 'http:' || protocol === 'https:') {
-					require('electron').shell.openExternal(e.url);
-				}
-			});
-		</script>
+		<script>require('./skype.js')</script>
 	</body>
 </html>

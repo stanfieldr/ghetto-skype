@@ -10,7 +10,7 @@ app.on('ready', function() {
 		autoHideMenuBar: true,
 		center: true,
 		closable: false,
-		show: !Settings.startMinimized,
+		show: !Settings.StartMinimized,
 		icon: 'assets/tray/skype.png'
 	});
 
