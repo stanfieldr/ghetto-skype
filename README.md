@@ -1,5 +1,5 @@
 # Ghetto Skype
-Are you tired of a dinosaur program? Do you hate clicking picture links? Does Skype for Linux randomly show people going offline and downright being unreliable? Then Ghetto Skype is for you!
+Are you tired of a buggy 32 bit official Skype client? Then Ghetto Skype is for you!
 
 ## Installing
 
@@ -20,8 +20,8 @@ If you need to update, it is recommended to `git pull` in the installation direc
 
 Here are a few options that can be set in `settings.json`:
 
-- startMinimized - When skype is launched, it's hidden in the tray till you click it
-- microsoftAccount - By pass skype login form and proceeds to login or ask for Microsoft credentials.
+- StartMinimized - When skype is launched, it's hidden in the tray till you click it
+- MicrosoftAccount - By pass skype login form and proceeds to login or ask for Microsoft credentials.
 
 Remember, edit the settings in the installation directory, not the folder you downloaded!
 
