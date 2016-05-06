@@ -18,11 +18,7 @@ function checkMicrosoftAccount(currentURL) {
 			"&redirect_uri=https://web.skype.com/"
 		].join('');
 
-		// Microsoft accounts login through oath
-		skypeView.loadURL(oathURL, {
-			httpReferrer: currentURL
-		});
-
+		skypeView.loadURL(oathURL);
 		return;
 	}
 }
