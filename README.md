@@ -1,13 +1,22 @@
 # Ghetto Skype
 Are you tired of a buggy 32 bit official Skype client? Then Ghetto Skype is for you!
 
+Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unofficial-client) for coming up with the idea of putting web skype in a Window. It was almost there, but I wanted a tray icon and notifications. This was a great excuse to learn how Electron apps work :)
+
+![Screenshot](assets/screenshot.png)
+
+## Features
+- Tray Icon turns red if you have unread messages
+- Native notifications from Web Skype via Electron
+- Auto login through Microsoft Account
+
 ## Installing
 
 First please make sure you have node and npm installed.
 
 ```bash
 # By default, the installation directory is `/opt/ghetto-skype`.
-# Change this in Makefile if you want to store it elsewhere before running.
+# Change this in Makefile if you want to store it elsewhere
 sudo make install
 
 # to uninstall
@@ -21,16 +30,9 @@ If you need to update, it is recommended to `git pull` in the installation direc
 Here are a few options that can be set in `settings.json`:
 
 - StartMinimized - When skype is launched, it's hidden in the tray till you click it
-- MicrosoftAccount - By pass skype login form and proceeds to login or ask for Microsoft credentials.
+- MicrosoftAccount - Skips the Skype Login and either logs you in or goes directly to Microsoft's login form.
 
-Remember, edit the settings in the installation directory, not the folder you downloaded!
-
-## Features
-- Tray Icon turns red if you have unread messages
-- Native notifications from Web Skype via Electron
-- Auto login through Microsoft Account
-
-![Screenshot](assets/screenshot.png)
+Remember, edit the settings in the installation directory, not the folder you downloaded ;)
 
 ## Disclaimer
 The Skype name, associated trade marks and logos and the "S" logo are trade marks of Skype or related entities.
