@@ -8,4 +8,4 @@ install:
 
 uninstall:
 	rm -rf $(INSTALLDIR)
-	rm /usr/share/applications/skype.desktop
+	rm /usr/share/applications/ghetto-skype.desktop
