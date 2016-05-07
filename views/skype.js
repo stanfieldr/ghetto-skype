@@ -11,6 +11,8 @@ var title     = document.querySelector('title');
  * form and go straight to the Microsoft login page
  */
 function checkMicrosoftAccount(currentURL) {
+	if (!Settings.MicrosoftAccount) return;
+
 	if (currentURL.hostname === "login.skype.com" && currentURL.query.client_id) {
 		let oathURL = [
 			"https://login.skype.com/login/oauth/microsoft?mssso=1&client_id=",
