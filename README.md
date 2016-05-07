@@ -18,6 +18,7 @@ First please make sure you have node and npm installed.
 
 # master should contain stable code, the default branch develop may contain bugs
 git clone -b master https://github.com/stanfieldr/ghetto-skype.git
+cd ghetto-skype
 
 # By default, the installation directory is `/opt/ghetto-skype`.
 # Change this in Makefile if you want to store it elsewhere
