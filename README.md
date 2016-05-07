@@ -15,6 +15,10 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 First please make sure you have node and npm installed.
 
 ```bash
+
+# master should contain stable code, the default branch develop may contain bugs
+git clone -b master https://github.com/stanfieldr/ghetto-skype.git
+
 # By default, the installation directory is `/opt/ghetto-skype`.
 # Change this in Makefile if you want to store it elsewhere
 sudo make install
