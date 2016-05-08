@@ -1,7 +1,9 @@
 {
   "name": "ghetto-skype",
-  "version": "1.0.0",
-  "description": "Web Skype + Tray Icon + notify-send",
+  "version": "1.0.1",
+  "productName": "Ghetto Skype",
+  "description": "Web Skype + Tray Icon + Notifications",
+  "private": true,
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -23,6 +25,13 @@
   },
   "homepage": "https://github.com/stanfieldr/ghetto-skype#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.37.8"
+    "electron-packager": "^7.0.1",
+    "electron-prebuilt": "^0.37.8",
+    "grunt": "^1.0.1",
+    "grunt-electron-installer": "^2.1.0",
+    "grunt-electron-installer-debian": "^0.3.0",
+    "grunt-electron-installer-redhat": "^0.3.0",
+    "grunt-electron-packager": "0.0.7",
+    "load-grunt-tasks": "^3.5.0"
   }
 }
