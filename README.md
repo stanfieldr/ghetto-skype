@@ -15,11 +15,22 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 First please make sure you have node and npm installed.
 
 ```bash
-
 # master should contain stable code, the default branch develop may contain bugs
 git clone -b master https://github.com/stanfieldr/ghetto-skype.git
 cd ghetto-skype
+```
 
+### Building the RPM
+```bash
+# might need sudo depending on how you setup npm
+$ npm install -g grunt
+$ npm install
+$ grunt
+```
+
+### Using make
+
+```bash
 # By default, the installation directory is `/opt/ghetto-skype`.
 # Change this in Makefile if you want to store it elsewhere
 sudo make install
@@ -31,6 +42,8 @@ sudo make install
 You may delete this folder after you run `make install`, you can run `make uninstall` from the installation directory after you trash this one.
 
 If you need to update, it is recommended to `git pull` in the installation directory. This way you keep your settings file and are alerted of any conflicts if settings have changed.
+
+## Misc Info
 
 Here are a few options that can be set in `settings.json`:
 
