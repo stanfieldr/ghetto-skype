@@ -14,7 +14,7 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 
 First please make sure you have node and npm installed.
 
-Ubuntu users (only older than 16.04) need to install or you will not see the tray icon:
+Ubuntu users (only older than 16.04) need to install this package to see the tray icon:
 ```bash
 sudo apt-get install libappindicator1
 ```
