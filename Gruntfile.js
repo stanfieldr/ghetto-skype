@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 			}
 		},
 
-		'electron-redhat-installer': {
+		'electron-installer-redhat': {
 			linux: {
 				options: {
 					bin: './Ghetto Skype',
@@ -28,8 +28,22 @@ module.exports = function(grunt) {
 				src: 'build/Ghetto Skype-linux-' + os.arch() + '/',
 				dest: 'dist/'
 			}
+		},
+
+		'electron-installer-debian': {
+			linux: {
+				options: {
+					bin: './Ghetto Skype',
+					icon: "./assets/tray/skype.png",
+					arch: os.arch() === 'x64' ? 'amd64' : 'i386'
+				},
+
+				src: 'build/Ghetto Skype-linux-' + os.arch() + '/',
+				dest: 'dist/'
+			}
 		}
 	});
 
-	grunt.registerTask('default', ['electron-packager:build', 'electron-redhat-installer']);
+	grunt.registerTask('rpm', ['electron-packager:build', 'electron-installer-redhat']);
+	grunt.registerTask('deb', ['electron-packager:build', 'electron-installer-debian']);
 };

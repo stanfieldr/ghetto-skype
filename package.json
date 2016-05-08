@@ -29,8 +29,9 @@
     "electron-prebuilt": "^0.37.8",
     "grunt": "^1.0.1",
     "grunt-electron-installer": "^2.1.0",
+    "grunt-electron-installer-debian": "^0.3.0",
+    "grunt-electron-installer-redhat": "^0.3.0",
     "grunt-electron-packager": "0.0.7",
-    "grunt-electron-redhat-installer": "^0.2.2",
     "load-grunt-tasks": "^3.5.0"
   }
 }
