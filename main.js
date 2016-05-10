@@ -9,7 +9,6 @@ app.on('ready', function() {
 	let mainWindow = new BrowserWindow({
 		autoHideMenuBar: true,
 		center: true,
-		closable: false,
 		show: !Settings.StartMinimized,
 		icon: app.getAppPath() + 'assets/tray/skype.png'
 	});
