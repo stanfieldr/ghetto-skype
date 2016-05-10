@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Skype</title>
+
+		<script>
+			window.$ = window.jQuery = require('../assets/jquery-2.2.3.min.js');
+		</script>
+		<script src="../assets/semantic.min.js"></script>
+
+		<link rel="stylesheet" href="../assets/semantic.min.css">
+		<style>
+			.container {
+				padding: 1em;
+			}
+
+			.page-controls {
+				float: right;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="ui dividing header">Settings</h1>
+			<div class="row">
+				<div class="ui column">
+					<table class="ui table">
+						<thead>
+							<tr>
+								<th>Setting</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<div class="ui slider checkbox">
+										<input name="AutoStart" type="checkbox" class="hidden">
+										<label>Automatically Start</label>
+									</div>
+								</td>
+								<td>
+									Starts Skype when you boot your computer
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="ui slider checkbox">
+										<input name="StartMinimized" type="checkbox" class="hidden">
+										<label>Start Minimized</label>
+									</div>
+								</td>
+								<td>
+									When you initially start Skype, it will open in the system tray
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="ui slider checkbox">
+										<input name="MicrosoftAccount" type="checkbox" class="hidden">
+										<label>Microsoft Account</label>
+									</div>
+								</td>
+								<td>
+									Automatically signs you into your Microsoft account
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="ui buttons page-controls">
+						<button class="ui secondary button">Cancel</button>
+						<div class="or"></div>
+						<button class="ui primary button">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var os       = require('os');
+			var fs       = require('fs');
+			var path     = require('path');
+			var Settings = require('../settings.json');
+
+			let autostartFile = os.homedir() + "/.config/autostart/ghetto-skype.desktop";
+
+			fs.access(autostartFile, fs.F_OK, (err) => {
+				Settings.AutoStart = !err;
+				for (var key in Settings) {
+					$('[name="' + key + '"]').prop('checked', Settings[key]);
+				}
+			});
+
+			function updateAutoStart(value) {
+				if (value) {
+					let target = path.join(__dirname, '..', 'assets', 'skype.desktop');
+					fs.symlink(target, autostartFile, (err) => {
+						if (err) {
+							// If file doesn't exist, this is a permission issue
+							fs.access(autostartFile, fs.F_OK, (err) => {
+								if (err) {
+									alert("Ghetto Skype does not have permission to write to " + autostartFile);
+									$elem.prop('checked', !value);
+								}
+							});
+						}
+					});
+				} else {
+					fs.unlink(autostartFile);
+				}
+			}
+
+			$('.checkbox').checkbox();
+			$('.checkbox input').change(function() {
+				let $elem = $(this);
+				let name  = this.name;
+				let value = $elem.prop('checked');
+
+				Settings[name] = value;
+			});
+
+			$('.secondary.button').click(function() {
+				window.close();
+			});
+
+			$('.primary.button').click(function() {
+				$(this).addClass('loading');
+
+				// Add or Remove symlink to auto start
+				updateAutoStart(Settings.AutoStart);
+				delete Settings.AutoStart;
+
+				let data = JSON.stringify(Settings, null, "\t");
+				fs.writeFile('settings.json', data, (err) => {
+					if (err) throw err;
+					window.close();
+				})
+			});
+		</script>
+	</body>
+</html>
