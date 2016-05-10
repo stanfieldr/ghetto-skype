@@ -54,6 +54,12 @@ sudo make install
 # sudo make uninstall
 ```
 
+#### Autostart
+To automatically start Skype when you start your computer you need to link the desktop folder here:
+```bash
+mkdir -p ~/.config/autostart
+ln -s ~/.config/autostart /opt/ghetto-skype/assets/skype.desktop
+```
 
 ## Settings
 Settings are located in settings.json (default: `/opt/ghetto-skype/settings.json`).
