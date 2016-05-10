@@ -12,10 +12,10 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 - Auto login through Microsoft Account
 
 ### Pros
-- Not as buggy as official Skype
-- 64 bit
-- Web Skype seems to be updated unlike official Skype
-- Video/Voice coming soon according to Skype personnel
+- Maintained
+- Not as buggy as official Skype and no 32 bit dependencies
+- Web Skype receives updates
+- Many features not available that are not present in Linux Skype client
 
 ### Cons
 - Video/Voice not yet available
@@ -55,10 +55,10 @@ sudo make install
 ```
 
 #### Autostart
-To automatically start Skype when you start your computer you need to link the desktop folder here:
+To automatically start Skype when you start your computer you need to link the desktop file here:
 ```bash
 mkdir -p ~/.config/autostart
-ln -s ~/.config/autostart /opt/ghetto-skype/assets/skype.desktop
+ln -s ~/.config/autostart/ghetto-skype.desktop /opt/ghetto-skype/assets/skype.desktop
 ```
 
 ## Settings
