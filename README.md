@@ -15,7 +15,7 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 - Maintained
 - Not as buggy as official Skype and no 32 bit dependencies
 - Web Skype receives updates
-- Many features not available that are not present in Linux Skype client
+- Many features not available for Linux Skype client
 
 ### Cons
 - Video/Voice not yet available
@@ -53,21 +53,6 @@ sudo make install
 # to uninstall
 # sudo make uninstall
 ```
-
-#### Autostart
-To automatically start Skype when you start your computer you need to link the desktop file here:
-```bash
-mkdir -p ~/.config/autostart
-ln -s ~/.config/autostart/ghetto-skype.desktop /opt/ghetto-skype/assets/skype.desktop
-```
-
-## Settings
-Settings are located in settings.json (default: `/opt/ghetto-skype/settings.json`).
-
-| Setting          | Possible Value                    | Description
-| ---------------- | --------------------------------- | ------------------------------
-| StartMinimized   | true, false                       | When launched, it's hidden in the tray till you click it
-| MicrosoftAccount | true, false                       | Useful if you autostart Skype. It skips the Skype login form and attempts to log you in via your Microsoft Account
 
 ## Disclaimer
 The Skype name, associated trade marks and logos and the "S" logo are trade marks of Skype or related entities.
