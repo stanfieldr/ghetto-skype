@@ -103,7 +103,7 @@
 
 			function updateAutoStart(value) {
 				if (value) {
-					let target = path.join(__dirname, '..', 'assets', 'skype.desktop');
+					let target = '/usr/share/applications/ghetto-skype.desktop';
 					fs.symlink(target, autostartFile, (err) => {
 						if (err) {
 							// If file doesn't exist, this is a permission issue
