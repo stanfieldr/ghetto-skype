@@ -42,7 +42,7 @@ $ sudo apt-get install fakeroot dpkg
 ```bash
 [u@h ghetto-skype]$ npm install -g grunt
 [u@h ghetto-skype]$ grunt rpm # makes package for rpm distros
-[u@h ghetto-skype]$ grunt dev # makes package for deb distros
+[u@h ghetto-skype]$ grunt deb # makes package for deb distros
 
 # After packages built they will be located here...
 [u@h ghetto-skype]$ cd dist && ls
@@ -50,7 +50,11 @@ $ sudo apt-get install fakeroot dpkg
 
 If your distro does not use RPM or DEB packages, you can build it like so:
 ```bash
-[u@h ghetto-skype]$ grunt
+[u@h ghetto-skype]$ grunt # Creates the build
+
+# Example of possible steps to do with your build:
+[root@h ghetto-skype]# cp -r build/Ghetto* /opt/ghetto-skype
+[root@h ghetto-skype]# ln -s /opt/ghetto-skype/assets/skype.desktop /usr/share/applications/ghetto-skype.desktop
 ```
 The build is placed in the build directory and then by cpu type. By default it detects 32/64 bit based on the system you build the package with. However, you can modify `Gruntfile.js` accordingly if need be.
 
