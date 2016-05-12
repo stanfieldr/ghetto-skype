@@ -35,7 +35,7 @@ function openSettings() {
 		autoHideMenuBar: true,
 		center: true,
 		width: 800,
-		height: 300
+		height: 370
 	});
 
 	settingsWindow.on('closed', function() {

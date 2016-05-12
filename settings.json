@@ -1,4 +1,5 @@
 {
 	"StartMinimized": false,
-	"MicrosoftAccount": false
+	"MicrosoftAccount": false,
+	"NativeImageViewer": false
 }

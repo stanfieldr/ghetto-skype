@@ -24,5 +24,8 @@
   "homepage": "https://github.com/stanfieldr/ghetto-skype#readme",
   "devDependencies": {
     "electron-prebuilt": "^0.37.8"
+  },
+  "dependencies": {
+    "tmp": "0.0.28"
   }
 }

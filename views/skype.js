@@ -1,3 +1,4 @@
+var electron  = require('electron');
 var url       = require('url');
 var remote    = require('remote');
 var TrayIcon  = remote.require('./tray');
@@ -48,10 +49,13 @@ skypeView.addEventListener('page-title-updated', function(event) {
 	checkTrayIcon(event.title);
 });
 
-skypeView.addEventListener('new-window', function(e) {
-	// Open links in external browser
-	var protocol = url.parse(e.url).protocol;
-	if (protocol === 'http:' || protocol === 'https:') {
-		require('electron').shell.openExternal(e.url);
+skypeView.addEventListener('new-window', function(event) {
+	let protocol = url.parse(event.url).protocol;
+
+	if (Settings.NativeImageViewer && event.url.indexOf('imgpsh_fullsize') >= 0) {
+		electron.ipcRenderer.send('image:download', event.url);
+	} else if (protocol === 'http:' || protocol === 'https:') {
+		// Open links in external browser
+		electron.shell.openExternal(event.url);
 	}
 });
