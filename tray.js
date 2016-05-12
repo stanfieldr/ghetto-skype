@@ -4,22 +4,24 @@ const BrowserWindow = require('browser-window');
 let trayIcon       = null;
 let mainWindow     = null;
 let settingsWindow = null;
+let basePath       = null;
 
 exports.init = function(window) {
 	mainWindow = window;
-	trayIcon   = new electron.Tray('assets/tray/skype.png');
+	basePath   = electron.app.getAppPath() + '/assets/tray/';
+	trayIcon   = new electron.Tray(`${basePath}skype.png`);
 
 	trayIcon.on('click', toggleOpen);
 	trayIcon.setContextMenu(contextMenu);
 }
 
 exports.setNotificationCount = function(count) {
-	let image;
+	let image = basePath;
 
 	if (count > 0) {
-		image = 'assets/tray/skype-1.png';
+		image += 'skype-1.png';
 	} else {
-		image = 'assets/tray/skype.png';
+		image += 'skype.png';
 	}
 
 	trayIcon.setImage(image);

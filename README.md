@@ -8,14 +8,9 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 ## Features
 - Tray Icon turns red if you have unread messages
 - Native notifications from Web Skype via Electron
+- Native Image Viewer can be used for previewing images
 - Start minimized when you start your computer
 - Auto login through Microsoft Account
-
-### Pros
-- Maintained
-- Not as buggy as official Skype and no 32 bit dependencies
-- Web Skype receives updates
-- Many features not available for Linux Skype client
 
 ### Cons
 - Video/Voice not yet available
@@ -23,36 +18,33 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 
 ## Installing
 
-#### Dependencies
-For most people, you will only need npm:
-```bash
-# Fedora
-sudo dnf install npm
-
-# Ubuntu
-sudo apt-get install npm
-```
-
-You might need this package on older versions of Ubuntu. If your tray icon is missing, it's likely because this package isn't installed on your system:
-```bash
-sudo apt-get install libappindicator1
-```
-
 #### Try it out
 
-You can try it without installing by navigating a terminal to the root directory of ghetto skype and typing
+You can take it for a test run without installing by opening a terminal, navigating to this directory, and typing:
 ```bash
-npm install && npm start
+[u@h ghetto-skype]$ npm install && npm start
 ```
+
+#### Dependencies
+
+You will need npm installed, I recommend [nvm](https://github.com/creationix/nvm) so you have the ability to use multiple node versions. It also fixes a common permission issue so you do not have to use sudo. However, if you have npm installed through your distro, that's all you need.
 
 #### Setup
-By default, the installation directory is `/opt/ghetto-skype`, change this in Makefile if you want to store it elsewhere.
-```bash
-sudo make install
 
-# to uninstall
-# sudo make uninstall
+```bash
+[u@h ghetto-skype]$ npm install -g grunt
+[u@h ghetto-skype]$ grunt rpm # makes package for rpm distros
+[u@h ghetto-skype]$ grunt dev # makes package for deb distros
+
+# After packages built they will be located here...
+[u@h ghetto-skype]$ cd dist && ls
 ```
+
+If your distro does not use RPM or DEB packages, you can build it like so:
+```bash
+[u@h ghetto-skype]$ grunt
+```
+The build is placed in the build directory and then by cpu type. By default it detects 32/64 bit based on the system you build the package with. However, you can modify `Gruntfile.js` accordingly if need be.
 
 ## Disclaimer
 The Skype name, associated trade marks and logos and the "S" logo are trade marks of Skype or related entities.
