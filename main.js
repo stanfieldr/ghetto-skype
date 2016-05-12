@@ -1,10 +1,13 @@
 const electron      = require('electron');
-const app           = electron.app;
+const fs            = require('fs');
 const BrowserWindow = require('browser-window');
-const Settings      = require('./settings');
 const TrayIcon      = require('./tray');
 const spawn         = require('child_process').spawn;
 const tmp           = require('tmp');
+
+const app = electron.app;
+
+let Settings = TrayIcon.getSettings();
 
 app.on('ready', function() {
 	let isQuiting  = false;

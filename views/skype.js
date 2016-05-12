@@ -2,7 +2,7 @@ var electron  = require('electron');
 var url       = require('url');
 var remote    = require('remote');
 var TrayIcon  = remote.require('./tray');
-var Settings  = require('../settings');
+var Settings  = electron.ipcRenderer.sendSync('settings:get');
 
 var skypeView = document.getElementById('skype-view');
 var title     = document.querySelector('title');

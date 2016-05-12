@@ -1,4 +1,5 @@
 const electron      = require('electron');
+const fs            = require('fs');
 const BrowserWindow = require('browser-window');
 
 let trayIcon       = null;
@@ -70,3 +71,27 @@ let contextMenu = new electron.Menu.buildFromTemplate([
 		}
 	}
 ]);
+
+let settingFile = electron.app.getPath('userData') + '/settings.json';
+let Settings;
+
+try {
+	Settings = JSON.parse(fs.readFileSync(settingFile));
+} catch(e) {
+	Settings = require('./settings.json');
+}
+
+exports.getSettings = () => Settings;
+electron.ipcMain.on('settings:get', function(event) {
+	event.returnValue = Settings;
+});
+
+electron.ipcMain.on('settings:save', function(event, settings) {
+	Object.assign(Settings, settings);
+	let data = JSON.stringify(settings, null, "\t");
+	fs.writeFile(settingFile, data, (err) => {
+		if (err) throw err;
+		settingsWindow.destroy();
+		settingsWindow = null;
+	})
+});

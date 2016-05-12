@@ -89,7 +89,8 @@
 			var os       = require('os');
 			var fs       = require('fs');
 			var path     = require('path');
-			var Settings = require('../settings.json');
+			var electron = require('electron');
+			var Settings = electron.ipcRenderer.sendSync('settings:get');
 
 			let autostartFile = os.homedir() + "/.config/autostart/ghetto-skype.desktop";
 
@@ -139,11 +140,7 @@
 				updateAutoStart(Settings.AutoStart);
 				delete Settings.AutoStart;
 
-				let data = JSON.stringify(Settings, null, "\t");
-				fs.writeFile('settings.json', data, (err) => {
-					if (err) throw err;
-					window.close();
-				})
+				electron.ipcRenderer.send('settings:save', Settings);
 			});
 		</script>
 	</body>
