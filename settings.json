@@ -1,5 +1,6 @@
 {
 	"StartMinimized": false,
 	"MicrosoftAccount": false,
-	"NativeImageViewer": false
+	"NativeImageViewer": false,
+	"ProxyRules": ""
 }
