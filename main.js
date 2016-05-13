@@ -30,6 +30,13 @@ app.on('ready', function() {
 	});
 
 	TrayIcon.init(mainWindow);
+
+	if (Settings.ProxyRules) {
+		mainWindow.webContents.session.setProxy({
+			proxyRules: Settings.ProxyRules
+		}, () => {});
+	}
+
 	mainWindow.loadURL('file://' + __dirname + '/views/skype.html');
 });
 
@@ -42,6 +49,12 @@ electron.ipcMain.on('image:download', function(event, url) {
 			partition: 'persist:skype'
 		}
 	});
+
+	if (Settings.ProxyRules) {
+		tmpWindow.webContents.session.setProxy({
+			proxyRules: Settings.ProxyRules
+		}, () => {});
+	}
 
 	tmpWindow.webContents.session.once('will-download', function(event, downloadItem) {
 		let fileName = imageCache[url];

@@ -97,7 +97,12 @@
 			fs.access(autostartFile, fs.F_OK, (err) => {
 				Settings.AutoStart = !err;
 				for (var key in Settings) {
-					$('[name="' + key + '"]').prop('checked', Settings[key]);
+					$elem = $('[name="' + key + '"]');
+
+					if (typeof Settings[key] === 'boolean')
+						$elem.prop('checked', Settings[key]);
+					else if (typeof Settings[key] === 'string')
+						$elem.val(Settings[key]);
 				}
 			});
 
