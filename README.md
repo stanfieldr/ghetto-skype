@@ -58,5 +58,21 @@ If your distro does not use RPM or DEB packages, you can build it like so:
 ```
 The build is placed in the build directory and then by cpu type. By default it detects 32/64 bit based on the system you build the package with. However, you can modify `Gruntfile.js` accordingly if need be.
 
+## Using a Proxy
+
+There currently isn't a way to edit this with the settings window right now. You can open `~/.config/Ghetto\ Skype/settings.json` with your favorite text editor and add your proxy to the ProxyRule setting, save, and restart
+Ghetto Skype.
+
+Example:
+```bash
+{
+	"StartMinimized": false,
+	"MicrosoftAccount": false,
+	"NativeImageViewer": false,
+	"ProxyRules": "socks5://46.105.6.191:5050"
+}
+
+```
+
 ## Disclaimer
 The Skype name, associated trade marks and logos and the "S" logo are trade marks of Skype or related entities.
