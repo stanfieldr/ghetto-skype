@@ -7,6 +7,18 @@ var Settings  = electron.ipcRenderer.sendSync('settings:get');
 var skypeView = document.getElementById('skype-view');
 var title     = document.querySelector('title');
 
+skypeView.addEventListener('dom-ready', function boot() {
+	skypeView.removeEventListener('dom-ready', boot);
+
+	if (Settings.ProxyRules) {
+		skypeView.getWebContents().session.setProxy({
+			proxyRules: Settings.ProxyRules
+		}, () => {});
+	}
+
+	skypeView.loadURL('https://web.skype.com/en');
+});
+
 /**
  * If the user has a Microsoft account, we skip the Skype login
  * form and go straight to the Microsoft login page

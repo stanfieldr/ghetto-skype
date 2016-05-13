@@ -30,13 +30,6 @@ app.on('ready', function() {
 	});
 
 	TrayIcon.init(mainWindow);
-
-	if (Settings.ProxyRules) {
-		mainWindow.webContents.session.setProxy({
-			proxyRules: Settings.ProxyRules
-		}, () => {});
-	}
-
 	mainWindow.loadURL('file://' + __dirname + '/views/skype.html');
 });
 
