@@ -18,6 +18,9 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 
 ## Installing
 
+You can download the RPM or DEB package on the [releases page](https://github.com/stanfieldr/ghetto-skype/releases)
+or you can build from source with the instructions below.
+
 #### Try it out
 
 You can take it for a test run without installing by opening a terminal, navigating to this directory, and typing:
@@ -41,6 +44,7 @@ $ sudo apt-get install fakeroot dpkg
 
 ```bash
 [u@h ghetto-skype]$ npm install -g grunt
+[u@h ghetto-skype]$ npm install
 [u@h ghetto-skype]$ grunt rpm # makes package for rpm distros
 [u@h ghetto-skype]$ grunt deb # makes package for deb distros
 
