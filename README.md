@@ -21,6 +21,8 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 You can download the RPM or DEB package on the [releases page](https://github.com/stanfieldr/ghetto-skype/releases)
 or you can build from source with the instructions below.
 
+If you run Arch Linux, you can use the [AUR package](https://aur.archlinux.org/packages/ghetto-skype) techwiz24 created.
+
 #### Try it out
 
 You can take it for a test run without installing by opening a terminal, navigating to this directory, and typing:
