@@ -38,7 +38,10 @@ function openSettings() {
 		autoHideMenuBar: true,
 		center: true,
 		width: 800,
-		height: 370
+		height: 370,
+		webPreferences: {
+			zoomFactor: Settings.ZoomFactor
+		}
 	});
 
 	settingsWindow.on('closed', function() {
@@ -76,7 +79,10 @@ let settingFile = electron.app.getPath('userData') + '/settings.json';
 let Settings;
 
 try {
-	Settings = JSON.parse(fs.readFileSync(settingFile));
+	settingFile = JSON.parse(fs.readFileSync(settingFile));
+	Settings    = require('./settings.json');
+
+	Object.assign(Settings, settingFile);
 } catch(e) {
 	Settings = require('./settings.json');
 }

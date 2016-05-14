@@ -77,7 +77,22 @@ Example:
 	"NativeImageViewer": false,
 	"ProxyRules": "socks5://46.105.6.191:5050"
 }
+```
 
+## Setting Zoom Level
+
+If the font/photos are not big enough for you, you can use the zoom factor in the `~/.config/Ghetto\ Skype/settings.json`.
+This will be added to the settings screen soon.
+
+Example 150%:
+```bash
+{
+	"StartMinimized": false,
+	"MicrosoftAccount": false,
+	"NativeImageViewer": false,
+	"ProxyRules": "socks5://46.105.6.191:5050",
+	"ZoomFactor": 1.5
+}
 ```
 
 ## Disclaimer
