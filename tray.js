@@ -79,10 +79,10 @@ let settingFile = electron.app.getPath('userData') + '/settings.json';
 let Settings;
 
 try {
-	settingFile = JSON.parse(fs.readFileSync(settingFile));
-	Settings    = require('./settings.json');
+	let tmpSettings = JSON.parse(fs.readFileSync(settingFile));
+	Settings        = require('./settings.json');
 
-	Object.assign(Settings, settingFile);
+	Object.assign(Settings, tmpSettings);
 } catch(e) {
 	Settings = require('./settings.json');
 }
