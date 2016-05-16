@@ -10,11 +10,12 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 - Native notifications from Web Skype via Electron
 - Native Image Viewer can be used for previewing images
 - Start minimized when you start your computer
+- Ability to make calls
+- Run Skype through a proxy
 - Auto login through Microsoft Account
 
 ### Cons
-- Video/Voice not yet available
-- P2P file transfer doesn't work unless Skype client supports cloud storage
+- File Transfer doesn't work if your contacts use an older version of Skype
 
 ## Installing
 
