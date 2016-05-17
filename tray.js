@@ -1,6 +1,6 @@
 const electron      = require('electron');
 const fs            = require('fs');
-const BrowserWindow = require('browser-window');
+const BrowserWindow = electron.BrowserWindow;
 
 let trayIcon       = null;
 let mainWindow     = null;
