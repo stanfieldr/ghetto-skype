@@ -1,6 +1,6 @@
 const electron      = require('electron');
 const fs            = require('fs');
-const BrowserWindow = require('browser-window');
+const BrowserWindow = electron.BrowserWindow;
 const TrayIcon      = require('./tray');
 const spawn         = require('child_process').spawn;
 const tmp           = require('tmp');
