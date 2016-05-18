@@ -1,10 +1,15 @@
 var electron  = require('electron');
 var url       = require('url');
-var TrayIcon  = electron.remote.require('./tray');
+
+var TrayIcon  = electron.remote.require('../app/tray');
 var Settings  = electron.ipcRenderer.sendSync('settings:get');
 
 var skypeView = document.getElementById('skype-view');
 var title     = document.querySelector('title');
+
+electron.ipcRenderer.on('settings:updated', function(event, settings) {
+	Settings = settings;
+});
 
 /**
  * If the user has a Microsoft account, we skip the Skype login
@@ -31,12 +36,13 @@ function checkMicrosoftAccount(currentURL) {
  */
 function checkTrayIcon(title) {
 	let result = /^\((\d+)\)/.exec(title);
+	let count  = 0;
 
 	if (result !== null && result.length === 2) {
-		TrayIcon.setNotificationCount(Number(result[1]));
-	} else {
-		TrayIcon.setNotificationCount(0);
+		count = Number(result[1]);
 	}
+
+	TrayIcon.setNotificationCount(count);
 }
 
 skypeView.addEventListener('dom-ready', function boot() {
