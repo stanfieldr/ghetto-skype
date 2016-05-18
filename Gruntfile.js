@@ -1,7 +1,7 @@
 const os = require('os');
 
 // Possible values: x64, ia32
-let arch = 'ia32' || os.arch();
+let arch = os.arch();
 
 module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
