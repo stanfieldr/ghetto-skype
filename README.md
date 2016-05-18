@@ -10,11 +10,12 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 - Native notifications from Web Skype via Electron
 - Native Image Viewer can be used for previewing images
 - Start minimized when you start your computer
-- Ability to make calls
 - Run Skype through a proxy
 - Auto login through Microsoft Account
+- Ability to make audio calls
 
 ### Cons
+- Video calls do not work and you have to initiate the audio call (if they call you, it wants you to install plugin). I'm currently looking at options to get around this.
 - File Transfer doesn't work if your contacts use an older version of Skype
 
 ## Installing
