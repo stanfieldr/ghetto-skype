@@ -15,7 +15,7 @@ electron.ipcRenderer.on('settings:updated', function(event, settings) {
  * If the user has a Microsoft account, we skip the Skype login
  * form and go straight to the Microsoft login page
  */
-function checkMicrosoftAccount(currentURL) {
+function checkMicrosoftAccount(event, currentURL) {
 	if (!Settings.MicrosoftAccount) return;
 
 	if (currentURL.hostname === "login.skype.com" && currentURL.query.client_id) {
@@ -26,7 +26,6 @@ function checkMicrosoftAccount(currentURL) {
 		].join('');
 
 		skypeView.loadURL(oathURL);
-		return;
 	}
 }
 
@@ -34,8 +33,8 @@ function checkMicrosoftAccount(currentURL) {
  * Decides if the user has any unread notifications and
  * provides the appropriate feedback to the tray icon
  */
-function checkTrayIcon(title) {
-	let result = /^\((\d+)\)/.exec(title);
+function checkTrayIcon(event) {
+	let result = /^\((\d+)\)/.exec(event.title);
 	let count  = 0;
 
 	if (result !== null && result.length === 2) {
@@ -45,7 +44,7 @@ function checkTrayIcon(title) {
 	TrayIcon.setNotificationCount(count);
 }
 
-skypeView.addEventListener('dom-ready', function boot() {
+function boot() {
 	skypeView.removeEventListener('dom-ready', boot);
 
 	if (Settings.ProxyRules) {
@@ -57,9 +56,18 @@ skypeView.addEventListener('dom-ready', function boot() {
 	skypeView.loadURL('https://web.skype.com/en', {
 		userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586'
 	});
+}
 
+skypeView.addEventListener('did-fail-load', function(e) {
+	let currentURL = url.parse(e.validatedURL, true);
+	if (currentURL.hostname === "login.skype.com") {
+		return;
+	}
+
+	setTimeout(boot, 2500);
 });
 
+skypeView.addEventListener('dom-ready', boot);
 skypeView.addEventListener('did-navigate', function() {
 	// For some reason, electron resets the zoom level for each page...
 	skypeView.setZoomFactor(Settings.ZoomFactor);
@@ -70,8 +78,8 @@ skypeView.addEventListener('page-title-updated', function(event) {
 
 	title.innerHTML = event.title;
 
-	checkMicrosoftAccount(currentURL);
-	checkTrayIcon(event.title);
+	checkMicrosoftAccount(event, currentURL);
+	checkTrayIcon(event);
 });
 
 skypeView.addEventListener('new-window', function(event) {
