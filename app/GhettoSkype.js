@@ -1,9 +1,11 @@
 const electron = require('electron');
 const fs       = require('fs');
 const path     = require('path');
+const spawn    = require('child_process').spawn;
+const tmp      = require('tmp');
+const mime     = require('mime');
+
 const settings = require('../settings');
-const spawn       = require('child_process').spawn;
-const tmp         = require('tmp');
 
 const BrowserWindow = electron.BrowserWindow;
 
@@ -61,10 +63,10 @@ class GhettoSkype {
 
 		tmpWindow.webContents.session.once('will-download', (event, downloadItem) => {
 			this.imageCache[url] = file = {
-				path: tmp.tmpNameSync() + '.png',
+				path: tmp.tmpNameSync() + '.' + mime.extension(downloadItem.getMimeType()),
 				complete: false
 			};
-			console.log(file.path);
+
 			downloadItem.setSavePath(file.path);
 			downloadItem.once('done', () => {
 				tmpWindow.destroy();

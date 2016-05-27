@@ -35,6 +35,7 @@
     "load-grunt-tasks": "^3.5.0"
   },
   "dependencies": {
+    "mime": "^1.3.4",
     "tmp": "0.0.28"
   }
 }
