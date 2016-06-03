@@ -43,4 +43,10 @@ app.on('ready', function() {
 
 	let filePath = path.join(__dirname, '..', 'views', 'skype.html');
 	mainWindow.loadURL('file://' + filePath);
+
+	// By default, electron will navigate the browser window to files that are dragged
+	// on top of it, but we want the files to be handled by Web Skype
+	mainWindow.webContents.on('will-navigate', function(event) {
+		event.preventDefault();
+	});
 });
