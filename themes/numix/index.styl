@@ -1,0 +1,124 @@
+$borders = #444
+$numixBlack = #2d2d2d
+$green   = #167F39
+
+.side, .Me-skyContainer, .conversationHeader, .input, .Me-large
+	background $numixBlack !important
+
+.side:before
+	border-right: none !important
+
+.sideContainer
+	border-right 1px solid $borders !important
+
+.input:before
+	border-top none !important
+
+.input
+	border-top 1px solid $borders
+
+	textarea
+		color #aaa !important
+
+.shell.footer
+	border-top 1px solid $borders !important
+	background-color #0d0d0d !important
+
+	.badge
+		background-color $green !important
+
+.TranslatorSettings
+	background-color inherit !important
+
+.SettingsDialog
+	background-color #3d3d3d !important
+	border 1px solid #000 !important
+	color #fff
+
+	.chat
+		background-color #3d3d3d !important
+
+	&:before
+		background none !important
+
+.conversationHeader
+	border-bottom 1px solid $borders !important
+
+	a
+		color #fff !important
+	&:after
+		border-bottom none !important
+
+.conversation
+	background #1d1d1d !important
+
+	.bubble
+		background-color inherit !important
+	.content, .messageTextWrapper, .liveSessionText
+		color #aaa !important
+		background-color $numixBlack !important
+	.liveSessionText
+		padding-left 1em !important
+
+.arrow:after
+	background-color inherit !important
+
+.Me-skyContainer
+	&:before
+		background-color inherit !important
+	&:after
+		background-color inherit !important
+
+.Me-sky
+	box-shadow none !important
+	background-color inherit !important
+
+	&:before
+		background-color inherit !important
+	&:after
+		background-color inherit !important
+
+.Me-small:before
+	border-right 0 !important
+
+.Me-displayName
+	color #fff !important
+
+.tileAvatar:before
+	background-color #1d1d1d !important
+
+.tileImage
+	background-color $green !important
+	border 1px solid black !important
+
+.presence:after, .presence:after:active
+	color #45BF55 !important
+
+.timelineComponentContainer .active.message, .timelineComponentContainer .message:before
+	background #1d1d1d !important
+
+.iconfont, .titleImage:after
+	color lime
+
+.iconfont:active
+	background #1d1d1d !important
+
+.btn.primary
+	&:before
+		background-color $green !important
+	.iconfont
+		color #fff !important
+
+.btn.secondary
+	&:before
+		border-color $green !important
+	&:after
+		border-color $green !important
+	.iconfont
+		color #fff !important
+
+.message .topic
+	color #ccc !important
+
+.message, .Me-availability
+	color #aaa !important
