@@ -2,6 +2,14 @@ $borders = #444
 $numixBlack = #2d2d2d
 $green   = #167F39
 
+body
+	background-color $numixBlack !important
+	color white !important
+
+.shellSplashContent
+	background-color $numixBlack !important
+	color white !important
+
 .side, .Me-skyContainer, .conversationHeader, .input, .Me-large
 	background $numixBlack !important
 
@@ -19,6 +27,32 @@ $green   = #167F39
 
 	textarea
 		color #aaa !important
+
+.inputField
+	color #aaa !important
+
+::-webkit-input-placeholder
+	color #8CA8B4 !important
+
+.active ::-webkit-input-placeholder
+	color #6d6d6d !important
+
+.chatInputActionPicker .action .icon
+	color #044C29 !important
+	&:hover
+		color $green !important
+
+:root .swx .btn.emoticon-picker-button.transparent > span.emoticonStroke
+	color #044C29 !important
+
+:root .swx .btn.emoticon-picker-button.transparent:hover > span.emoticonStroke
+	color $green !important
+
+.ContactProfile--data-item
+	color #eee !important
+
+.conversationHistory:after, .input.showCover:after
+	background-color #3d3d3d !important
 
 .shell.footer
 	border-top 1px solid $borders !important
@@ -94,8 +128,18 @@ $green   = #167F39
 .presence:after, .presence:after:active
 	color #45BF55 !important
 
-.timelineComponentContainer .active.message, .timelineComponentContainer .message:before
+.timelineComponentContainer .active.message, .timelineComponentContainer .message:before, .searchItem:before, .navItem.icon:hover
 	background #1d1d1d !important
+
+.unread .counter .circle
+	background-color #d64937 !important
+	border 1px solid #000 !important
+
+	&:before
+		background-color $numixBlack !important
+
+:root .swx .timeline .recents .recent.unread:hover .unseenNotifications .counter .circle:before
+	background-color $numixBlack !important
 
 .iconfont, .titleImage:after
 	color lime
@@ -103,13 +147,13 @@ $green   = #167F39
 .iconfont:active
 	background #1d1d1d !important
 
-.btn.primary
+.btn.circle:not(.stroke)
 	&:before
 		background-color $green !important
 	.iconfont
 		color #fff !important
 
-.btn.secondary
+.btn.stroke
 	&:before
 		border-color $green !important
 	&:after
@@ -117,7 +161,7 @@ $green   = #167F39
 	.iconfont
 		color #fff !important
 
-.message .topic
+.message .topic, .tileName
 	color #ccc !important
 
 .message, .Me-availability

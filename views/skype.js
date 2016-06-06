@@ -60,6 +60,8 @@ function boot() {
 	skypeView.loadURL('https://web.skype.com/en', {
 		userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586'
 	});
+
+	// skypeView.openDevTools();
 }
 
 function loadTheme(theme) {
@@ -83,6 +85,7 @@ skypeView.addEventListener('did-fail-load', function(event) {
 });
 
 skypeView.addEventListener('dom-ready', boot);
+
 skypeView.addEventListener('did-navigate', function() {
 	// For some reason, electron resets the zoom level for each page...
 	skypeView.setZoomFactor(Settings.ZoomFactor);
