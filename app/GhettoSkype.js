@@ -4,6 +4,7 @@ const path     = require('path');
 const spawn    = require('child_process').spawn;
 const tmp      = require('tmp');
 const mime     = require('mime');
+const stylus   = require('stylus');
 
 const settings = require('../settings');
 
@@ -91,15 +92,25 @@ class GhettoSkype {
 			autoHideMenuBar: true,
 			center: true,
 			width: 800,
-			height: 370,
+			height: 400,
 			webPreferences: {
 				zoomFactor: this.settings.ZoomFactor
 			}
 		});
 
-		this.settingsWindow.on('closed', function() {
-			delete this.settingsWindow;
-		});
+		if (this.settings.Theme) {
+			let folder = path.join(__dirname, '..', 'themes', this.settings.Theme);
+			let p = path.join(folder, 'settings.styl');
+			fs.readFile(p, 'utf8', (err, scss) => {
+				stylus(scss)
+					.include(folder)
+					.render((err, css) => {
+						this.settingsWindow.webContents.once('did-finish-load', () => this.settingsWindow.webContents.insertCSS(css));
+					});
+			});
+		}
+
+		this.settingsWindow.on('closed', () => delete this.settingsWindow);
 
 		let filePath = path.join(__dirname, '..', 'views', 'settings.html');
 		this.settingsWindow.loadURL("file://" + filePath);

@@ -25,6 +25,14 @@
 			<h1 class="ui dividing header">Settings</h1>
 			<div class="row">
 				<div class="ui column">
+					<label>
+						Theme (requires restart)
+						<select name="Theme">
+							<option value="">Web Skype</option>
+							<option value="dark">Dark</option>
+						</select>
+					</label>
+
 					<table class="ui table">
 						<thead>
 							<tr>
@@ -126,6 +134,13 @@
 			}
 
 			$('.checkbox').checkbox();
+			$('select').change(function() {
+				let name  = this.name;
+				let value = this.value;
+
+				Settings[name] = value;
+			});
+
 			$('.checkbox input').change(function() {
 				let $elem = $(this);
 				let name  = this.name;

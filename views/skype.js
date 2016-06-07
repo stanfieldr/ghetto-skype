@@ -65,11 +65,12 @@ function boot() {
 }
 
 function loadTheme(theme) {
-	let p = path.join(__dirname, '..', 'themes', theme, 'index.styl');
+	let folder = path.join(__dirname, '..', 'themes', theme);
+	let p = path.join(folder, 'skype.styl');
 	fs.readFile(p, 'utf8', (err, scss) => {
-		stylus.render(scss, (err, css) => {
-			skypeView.insertCSS(css);
-		});
+		stylus(scss)
+			.include(folder)
+			.render((err, css) => skypeView.insertCSS(css));
 	});
 }
 
@@ -79,17 +80,16 @@ skypeView.addEventListener('did-fail-load', function(event) {
 		return;
 	}
 
-	console.log('failed to load');
-
 	setTimeout(boot, 2500);
 });
 
 skypeView.addEventListener('dom-ready', boot);
 
-skypeView.addEventListener('did-navigate', function() {
+skypeView.addEventListener('did-navigate', function(event) {
 	// For some reason, electron resets the zoom level for each page...
 	skypeView.setZoomFactor(Settings.ZoomFactor);
-	loadTheme('numix');
+	if (Settings.Theme && event.url.indexOf('https://web.skype.com') >= 0)
+		loadTheme(Settings.Theme);
 });
 
 skypeView.addEventListener('page-title-updated', function(event) {
