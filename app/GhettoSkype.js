@@ -27,6 +27,7 @@ class GhettoSkype {
 		ipc.on('image:download', this.downloadImage.bind(this));
 		ipc.on('settings:save', this.saveSettings.bind(this));
 		ipc.on('settings:get', (event) => event.returnValue = settings);
+		ipc.on('log', (e, message) => console.log(message));
 	}
 
 	createWindow(options) {

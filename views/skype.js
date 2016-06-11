@@ -50,8 +50,12 @@ function checkTrayIcon(event) {
 
 function boot() {
 	skypeView.removeEventListener('dom-ready', boot);
+	skypeView.openDevTools();
+
+	electron.ipcRenderer.send('log', 'booting');
 
 	if (Settings.ProxyRules) {
+		electron.ipcRenderer.send('log', 'setting proxy: ' + Settings.ProxyRules);
 		skypeView.getWebContents().session.setProxy({
 			proxyRules: Settings.ProxyRules
 		}, () => {});
@@ -73,16 +77,16 @@ function loadTheme(theme) {
 }
 
 skypeView.addEventListener('did-fail-load', function(event) {
-	// We are not interested in redirects, only failures
-	if (event.errorCode === -3) {
+	if (event.errorCode === -106) {
+		electron.ipcRenderer.send('log', 'Connection Unavailable');
+		setTimeout(boot, 2500);
 		return;
 	}
 
-	setTimeout(boot, 2500);
+	electron.ipcRenderer.send('log', 'Failed to load: ' + event);	
 });
 
 skypeView.addEventListener('dom-ready', boot);
-
 skypeView.addEventListener('did-navigate', function(event) {
 	// For some reason, electron resets the zoom level for each page...
 	skypeView.setZoomFactor(Settings.ZoomFactor);
