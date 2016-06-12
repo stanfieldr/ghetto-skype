@@ -83,7 +83,7 @@ skypeView.addEventListener('did-fail-load', function(event) {
 		return;
 	}
 
-	electron.ipcRenderer.send('log', 'Failed to load: ' + event);	
+	electron.ipcRenderer.send('log', 'Failed to load: ' + JSON.stringify(event));	
 });
 
 skypeView.addEventListener('dom-ready', boot);
