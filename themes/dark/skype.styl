@@ -4,6 +4,9 @@ body
 	background-color $numixBlack !important
 	color white !important
 
+:root .swx .themeWhite
+	background-color $numixBlack !important
+
 .shellSplashContent
 	background-color $numixBlack !important
 	color white !important
@@ -122,7 +125,10 @@ body
 .Me-displayName
 	color #fff !important
 
-.tileAvatar:before
+.Me--expanded
+	background-color $numixBlack !important
+
+.tileAvatar:before, .presence.circle.tileAvatar:before
 	background-color #1d1d1d !important
 
 .tileImage
@@ -135,7 +141,7 @@ body
 .timelineComponentContainer .active.message, .timelineComponentContainer .message:before, .searchItem:before, .navItem.icon:hover
 	background #1d1d1d !important
 
-.unread .counter .circle
+.unread .counter .circle, :root .swx .themeWhite .timeline .recent.active.unread .counter span.circle
 	background-color #d64937 !important
 	border 1px solid #000 !important
 
@@ -148,7 +154,7 @@ body
 .iconfont, .titleImage:after
 	color lime
 
-.iconfont:active
+.iconfont:active, .icon.active .iconfont, :root .swx .themeWhite .side .navigation .navItem.icon:focus:not(.active)
 	background #1d1d1d !important
 
 .btn.circle:not(.stroke)
@@ -170,3 +176,38 @@ body
 
 .message, .Me-availability
 	color #aaa !important
+
+h2.UserSettingsPage-featureLabel
+	color: #aaa !important
+
+a.UserSettingsPage-category
+	&:focus
+		border: none !important
+		padding: 0 30px !important
+	&.active
+		background-color: #1d1d1d !important
+	h2.UserSettingsPage-label
+		background-color: inherit !important
+
+h2.UserSettingsPage-label, a.UserSettingsPage-category
+	background-color: #2d2d2d !important
+	color: #aaa !important
+	&:before
+		color: #ccc !important
+
+p.UserSettingsPage-featureLabel
+	color #aaa !important
+
+.pref-select-element > select
+	color #aaa !important
+	background-color #3d3d3d !important
+	border 1px solid #1d1d1d !important
+
+div.UserSettingsPage-detail--white:before
+	border 1px solid $borders !important
+
+h1.ContactsPage-heading, h1.DiscoverAgentsPage--heading, h1.UserSettingsPage-heading, .skypeOutInput
+	color #aaa !important
+
+.ContactsPage-categoryItem .MenuItem-link--selected
+	color: #fff !important

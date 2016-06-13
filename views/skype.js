@@ -50,7 +50,6 @@ function checkTrayIcon(event) {
 
 function boot() {
 	skypeView.removeEventListener('dom-ready', boot);
-	skypeView.openDevTools();
 
 	electron.ipcRenderer.send('log', 'booting');
 
@@ -83,7 +82,7 @@ skypeView.addEventListener('did-fail-load', function(event) {
 		return;
 	}
 
-	electron.ipcRenderer.send('log', 'Failed to load: ' + JSON.stringify(event));	
+	electron.ipcRenderer.send('log', 'Failed to load: ' + JSON.stringify(event));
 });
 
 skypeView.addEventListener('dom-ready', boot);
