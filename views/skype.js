@@ -75,6 +75,23 @@ function loadTheme(theme) {
 	});
 }
 
+function setUserStatus(status) {
+	if (status == "busy") // some aliases for user statuses
+		status = "dnd";
+	if (status == "away")
+		status = "idle";
+
+	// default to idle if status not found
+	if (status != "online" && status != "idle" && status != "dnd" && status != "hidden")
+		status = "idle";
+
+	skypeView.executeJavaScript('document.querySelector(".PresencePopup-status--' + status + '").click()');
+}
+
+require('electron').ipcRenderer.on("status-change", function(event, status) {
+	setUserStatus(status);
+});
+
 skypeView.addEventListener('did-fail-load', function(event) {
 	if (event.errorCode === -106) {
 		electron.ipcRenderer.send('log', 'Connection Unavailable');
