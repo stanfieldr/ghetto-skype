@@ -122,13 +122,17 @@ class GhettoSkype {
 		this.sendToRenderers('settings:updated', this.settings);
 
 		let data = JSON.stringify(this.settings, null, "\t");
-		fs.writeFile(settingsFile, data, (err) => {
+		fs.writeFile(settingsFile + '.tmp', data, (err) => {
 			if (err) throw err;
-
-			if (this.settingsWindow) {
-				this.settingsWindow.destroy();
-				this.settingsWindow = null;
-			}
+					 
+			fs.rename(settingsFile + '.tmp', settingsFile, (err) => {
+				if (err) throw err;
+					  
+				if (this.settingsWindow) {
+					this.settingsWindow.destroy();
+					this.settingsWindow = null;
+				}
+			});
 		});
 	}
 
