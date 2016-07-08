@@ -122,6 +122,13 @@ skypeView.addEventListener('page-title-updated', function(event) {
 skypeView.addEventListener('new-window', function(event) {
 	let protocol = url.parse(event.url).protocol;
 
+	// Skype added some weird window.open hack. For what reason, who knows.
+	// Could probably fix this upstream in electron, but this is a temp solution
+	if (event.url === 'https://web.skype.com/en/undefined') {
+		event.preventDefault();
+		return;
+	}
+
 	if (Settings.NativeImageViewer && event.url.indexOf('imgpsh_fullsize') >= 0) {
 		electron.ipcRenderer.send('image:download', event.url);
 	} else if (protocol === 'http:' || protocol === 'https:') {
