@@ -18,7 +18,7 @@
     "skype",
     "wrapper"
   ],
-  "author": "Robert Stanfield",
+  "author": "Robert Stanfield <robert@stanfield.it>",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/stanfieldr/ghetto-skype/issues"
