@@ -8,6 +8,7 @@ let trayIcon       = null;
 let mainWindow     = null;
 let settingsWindow = null;
 let basePath       = null;
+let lastCount      = 0;
 
 exports.init = function(window) {
 	mainWindow = window;
@@ -19,6 +20,10 @@ exports.init = function(window) {
 };
 
 exports.setNotificationCount = function(count) {
+	if (count === lastCount) {
+		return;
+	}
+
 	let image = basePath;
 
 	if (count > 0) {
@@ -28,6 +33,7 @@ exports.setNotificationCount = function(count) {
 	}
 
 	trayIcon.setImage(image);
+	lastCount = count;
 };
 
 function toggleOpen() {

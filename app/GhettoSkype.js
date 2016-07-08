@@ -124,10 +124,10 @@ class GhettoSkype {
 		let data = JSON.stringify(this.settings, null, "\t");
 		fs.writeFile(settingsFile + '.tmp', data, (err) => {
 			if (err) throw err;
-					 
+
 			fs.rename(settingsFile + '.tmp', settingsFile, (err) => {
 				if (err) throw err;
-					  
+
 				if (this.settingsWindow) {
 					this.settingsWindow.destroy();
 					this.settingsWindow = null;
