@@ -19,7 +19,8 @@ try {
 class GhettoSkype {
 	constructor(settings) {
 		this.settings   = settings;
-		this.windows    = [];
+		this.uniqID     = 0;
+		this.windows    = {};
 		this.imageCache = {};
 
 		const ipc = electron.ipcMain;
@@ -32,9 +33,11 @@ class GhettoSkype {
 
 	createWindow(options) {
 		let window = new BrowserWindow(options);
-		let index  = this.windows.push(window) - 1;
 
-		window.on('closed', () => this.windows.splice(index, 1));
+		let index  = this.uniqID++;
+
+		this.windows[index] = window;
+		window.on('closed', () => delete this.windows[index]);
 
 		return window;
 	}
@@ -122,10 +125,12 @@ class GhettoSkype {
 		this.sendToRenderers('settings:updated', this.settings);
 
 		let data = JSON.stringify(this.settings, null, "\t");
-		fs.writeFile(settingsFile + '.tmp', data, (err) => {
+		let tmpFile = settingsFile + '.tmp';
+
+		fs.writeFile(tmpFile, data, (err) => {
 			if (err) throw err;
 
-			fs.rename(settingsFile + '.tmp', settingsFile, (err) => {
+			fs.rename(tmpFile, settingsFile, (err) => {
 				if (err) throw err;
 
 				if (this.settingsWindow) {
@@ -137,10 +142,10 @@ class GhettoSkype {
 	}
 
 	sendToRenderers(channel, args) {
-		this.windows.forEach(window => {
-			let webContents = window.webContents;
+		for (var id in this.windows) {
+			let webContents = this.windows[id].webContents;
 			webContents.send.apply(webContents, arguments);
-		});
+		}
 	}
 }
 

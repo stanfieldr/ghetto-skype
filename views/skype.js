@@ -13,6 +13,7 @@ var title     = document.querySelector('title');
 
 electron.ipcRenderer.on('settings:updated', function(event, settings) {
 	Settings = settings;
+	skypeView.setAudioMuted(Settings.Mute);
 });
 
 /**
@@ -51,8 +52,6 @@ function checkTrayIcon(event) {
 function boot() {
 	skypeView.removeEventListener('dom-ready', boot);
 
-	electron.ipcRenderer.send('log', 'booting');
-
 	if (Settings.ProxyRules) {
 		electron.ipcRenderer.send('log', 'setting proxy: ' + Settings.ProxyRules);
 		skypeView.getWebContents().session.setProxy({
@@ -61,6 +60,7 @@ function boot() {
 	}
 
 	skypeView.loadURL('https://web.skype.com/en');
+	skypeView.setAudioMuted(Settings.Mute);
 
 	// skypeView.openDevTools();
 }
@@ -68,8 +68,8 @@ function boot() {
 function loadTheme(theme) {
 	let folder = path.join(__dirname, '..', 'themes', theme);
 	let p = path.join(folder, 'skype.styl');
-	fs.readFile(p, 'utf8', (err, scss) => {
-		stylus(scss)
+	fs.readFile(p, 'utf8', (err, styl) => {
+		stylus(styl)
 			.include(folder)
 			.render((err, css) => skypeView.insertCSS(css));
 	});
@@ -88,7 +88,7 @@ function setUserStatus(status) {
 	skypeView.executeJavaScript('document.querySelector(".PresencePopup-status--' + status + '").click()');
 }
 
-require('electron').ipcRenderer.on("status-change", function(event, status) {
+electron.ipcRenderer.on("status-change", function(event, status) {
 	setUserStatus(status);
 });
 

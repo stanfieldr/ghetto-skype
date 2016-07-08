@@ -2,6 +2,7 @@
 	"StartMinimized": false,
 	"MicrosoftAccount": false,
 	"NativeImageViewer": false,
+	"Mute": false,
 	"ProxyRules": "",
 	"ZoomFactor": 1.0
 }
