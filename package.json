@@ -31,7 +31,8 @@
     "grunt-electron-installer": "^2.1.0",
     "grunt-electron-installer-debian": "^0.3.0",
     "grunt-electron-installer-redhat": "^0.3.0",
-    "grunt-electron-packager": "0.0.7"
+    "grunt-electron-packager": "0.0.7",
+    "load-grunt-tasks": "^3.5.0"
   },
   "dependencies": {
     "mime": "^1.3.4",
