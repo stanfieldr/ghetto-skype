@@ -1,21 +1,21 @@
 @import 'colors'
 
 body
-	background-color $numixBlack !important
-	color white !important
+	background-color $background !important
+	color $normal_text !important
 
 :root .swx .themeWhite
-	background-color $numixBlack !important
+	background-color $background !important
 
 .shellSplashContent
-	background-color $numixBlack !important
+	background-color $background !important
 	color white !important
 
 .Me-linkText, [data-swx-testid="conversationTopic"]
-	color #fff !important
+	color $normal_text !important
 
 .side, .Me-skyContainer, .conversationHeader, .input, .Me-large
-	background $numixBlack !important
+	background $background !important
 
 .side:before
 	border-right: none !important
@@ -33,10 +33,10 @@ body
 	border-top 1px solid $borders
 
 	textarea
-		color #aaa !important
+		color $input_text !important
 
 .inputField
-	color #aaa !important
+	color $input_text !important
 
 ::-webkit-input-placeholder
 	color #8CA8B4 !important
@@ -72,12 +72,12 @@ body
 	background-color inherit !important
 
 .SettingsDialog
-	background-color #3d3d3d !important
+	background-color $contextmenu_background !important
 	border 1px solid #000 !important
-	color #fff
+	color $normal_text
 
 	.chat
-		background-color #3d3d3d !important
+		background-color $contextmenu_background !important
 
 	&:before
 		background none !important
@@ -86,18 +86,18 @@ body
 	border-bottom 1px solid $borders !important
 
 	a
-		color #fff !important
+		color $normal_text !important
 	&:after
 		border-bottom none !important
 
 .conversation
-	background #1d1d1d !important
+	background $chat_background !important
 
 	.bubble
 		background-color inherit !important
 	.content, .messageTextWrapper, .liveSessionText
 		color #aaa !important
-		background-color $numixBlack !important
+		background-color $background !important
 	.liveSessionText
 		padding-left 1em !important
 
@@ -126,7 +126,7 @@ body
 	color #fff !important
 
 .Me--expanded
-	background-color $numixBlack !important
+	background-color $background !important
 
 .tileAvatar:before, .presence.circle.tileAvatar:before
 	background-color #1d1d1d !important
@@ -146,10 +146,10 @@ body
 	border 1px solid #000 !important
 
 	&:before
-		background-color $numixBlack !important
+		background-color $background !important
 
 :root .swx .timeline .recents .recent.unread:hover .unseenNotifications .counter .circle:before
-	background-color $numixBlack !important
+	background-color $background !important
 
 .iconfont, .titleImage:after
 	color lime
@@ -161,7 +161,7 @@ body
 	&:before
 		background-color $green !important
 	.iconfont
-		color #fff !important
+		color $normal_text !important
 
 .btn.stroke
 	&:before
@@ -169,7 +169,7 @@ body
 	&:after
 		border-color $green !important
 	.iconfont
-		color #fff !important
+		color $normal_text !important
 
 .message .topic, .tileName
 	color #ccc !important
@@ -211,3 +211,40 @@ h1.ContactsPage-heading, h1.DiscoverAgentsPage--heading, h1.UserSettingsPage-hea
 
 .ContactsPage-categoryItem .MenuItem-link--selected
 	color: #fff !important
+
+:root .swx .hyperscroll .rail:hover
+	background-color #4d4d4d !important
+	border-color #1d1d1d !important
+
+:root .swx .hyperscroll .rail .slider
+	background #ccc !important
+	border-color #1d1d1d !important
+
+:root .swx h1, :root .swx p
+	color $normal_text !important
+
+:focus
+	outline none !important
+
+button.btn.primary:before
+	background-color darken($green, 10%) !important
+
+button.btn.secondary:not(.stroke):before
+	background-color darken($green, 20%) !important
+
+:root ul.swxContextMenu
+	background-color #3d3d3d !important
+	border 1px solid #000 !important
+	color #ccc !important
+
+	.arrow
+		display none !important
+
+	li.separator
+		border-color #000 !important
+
+	li.list-selectable:focus span
+		background-color inherit
+
+	li.list-selectable:hover span
+		background-color #1d1d1d
