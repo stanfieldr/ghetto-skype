@@ -28,6 +28,10 @@ exports.setNotificationCount = function(count) {
 
 	if (count > 0) {
 		image += 'skype-1.png';
+		if (GhettoSkype.settings.OpenWhenMessaged) {
+			mainWindow.show();
+			mainWindow.focus();
+		}
 	} else {
 		image += 'skype.png';
 	}
@@ -37,8 +41,12 @@ exports.setNotificationCount = function(count) {
 };
 
 function toggleOpen() {
-	let fn = mainWindow.isVisible()	? 'hide' : 'show';
-	mainWindow[fn]();
+	if (mainWindow.isVisible()) {
+		mainWindow.hide();
+	} else {
+		mainWindow.show();
+		mainWindow.focus();
+	}
 }
 
 let contextMenu = new electron.Menu.buildFromTemplate([
@@ -63,7 +71,10 @@ let contextMenu = new electron.Menu.buildFromTemplate([
 	},
 	{
 		label: "Open",
-		click: () => mainWindow.show()
+		click: () => {
+			mainWindow.show();
+			mainWindow.focus();
+		}
 	},
 	{
 		label: "Settings",
