@@ -122,8 +122,22 @@ body
 .Me-small:before
 	border-right 0 !important
 
-.Me-displayName
-	color #fff !important
+:root .swx p.Me-displayName
+	color $normal_text !important
+
+:root .swx .PresencePopup
+	background-color $contextmenu_background !important
+	color $paragraph_text !important
+	border none !important
+
+:root .swx .popup.arrow:before
+	background: none !important
+
+:root .swx .popup-select-option:hover
+	background-color: #1d1d1d !important
+
+.Me-availabilityText span
+	color $normal_text !important
 
 .Me--expanded
 	background-color $background !important
@@ -220,8 +234,11 @@ h1.ContactsPage-heading, h1.DiscoverAgentsPage--heading, h1.UserSettingsPage-hea
 	background #ccc !important
 	border-color #1d1d1d !important
 
-:root .swx h1, :root .swx p
+:root .swx h1
 	color $normal_text !important
+
+:root .swx p
+	color $paragraph_text
 
 :focus
 	outline none !important
