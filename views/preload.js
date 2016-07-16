@@ -30,7 +30,7 @@
 	});
 
 	window.addEventListener("DOMContentLoaded", function(event) {
-		$ = require('jquery');
+		$ = require('../assets/jquery-2.2.3.min');
 
 		// Hacking the skype hack
 		document.addEventListener('click', function(event) {
