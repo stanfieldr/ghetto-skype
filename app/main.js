@@ -5,10 +5,24 @@ const GhettoSkype = require('./GhettoSkype');
 const TrayIcon    = require('./tray');
 const tmp         = require('tmp');
 
+let mainWindow = null;
+
+const shouldQuit = app.makeSingleInstance(() => {
+	if (mainWindow) {
+		mainWindow.show();
+		mainWindow.focus();
+	}
+});
+
+if (shouldQuit) {
+	app.quit();
+	return;
+}
+
 app.on('ready', function() {
-	let isQuiting  = false;
-	let settings   = GhettoSkype.settings;
-	let mainWindow = GhettoSkype.createWindow({
+	let isQuiting = false;
+	let settings  = GhettoSkype.settings;
+	mainWindow = GhettoSkype.createWindow({
 		autoHideMenuBar: true,
 		center: true,
 		show: !settings.StartMinimized,
