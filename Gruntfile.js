@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 					arch: arch,
 					dir: '.',
 					out: './build',
-					icon: './assets/tray/skype.png',
+					icon: './assets/tray/skype-big.png',
 					ignore: ['build', 'dist'],
 					overwrite: true
 				}
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 			linux: {
 				options: {
 					bin: './Ghetto Skype',
-					icon: "./assets/tray/skype.png",
+					icon: "./assets/tray/skype-big.png",
 					arch: arch === 'x64' ? 'x86_64' : 'x86'
 				},
 
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 			linux: {
 				options: {
 					bin: './Ghetto Skype',
-					icon: "./assets/tray/skype.png",
+					icon: "./assets/tray/skype-big.png",
 					arch: arch === 'x64' ? 'amd64' : 'i386',
 					depends: [
 						'libappindicator1'

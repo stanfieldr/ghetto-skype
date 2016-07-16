@@ -13,7 +13,7 @@ let lastCount      = 0;
 exports.init = function(window) {
 	mainWindow = window;
 	basePath   = electron.app.getAppPath() + '/assets/tray/';
-	trayIcon   = new electron.Tray(`${basePath}skype.png`);
+	trayIcon   = new electron.Tray(`${basePath}skype24.png`);
 
 	trayIcon.on('click', toggleOpen);
 	trayIcon.setContextMenu(contextMenu);
@@ -27,14 +27,14 @@ exports.setNotificationCount = function(count) {
 	let image = basePath;
 
 	if (count > 0) {
-		image += 'skype-1.png';
+		image += 'skype24-1.png';
 		if (GhettoSkype.settings.OpenWhenMessaged) {
 			GhettoSkype.sendToRenderers('read-latest-thread');
 			mainWindow.show();
 			mainWindow.focus();
 		}
 	} else {
-		image += 'skype.png';
+		image += 'skype24.png';
 	}
 
 	trayIcon.setImage(image);

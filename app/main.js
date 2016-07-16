@@ -26,7 +26,7 @@ app.on('ready', function() {
 		autoHideMenuBar: true,
 		center: true,
 		show: !settings.StartMinimized,
-		icon: app.getAppPath() + '/assets/tray/skype.png'
+		icon: app.getAppPath() + '/assets/tray/skype-big.png'
 	});
 
 	if (settings.mainWindow) {
