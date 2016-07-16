@@ -38,6 +38,10 @@ app.on('ready', function() {
 		isQuiting = true;
 	});
 
+	mainWindow.on('show', function() {
+		mainWindow.focus();
+	});
+
 	mainWindow.on('close', function(event) {
 		if (!isQuiting) {
 			event.preventDefault();

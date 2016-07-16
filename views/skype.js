@@ -14,6 +14,11 @@ var title     = document.querySelector('title');
 electron.ipcRenderer.on('settings:updated', function(event, settings) {
 	Settings = settings;
 	skypeView.setAudioMuted(Settings.Mute);
+	skypeView.send('settings-updated', settings);
+});
+
+electron.ipcRenderer.on('read-latest-thread', function() {
+	skypeView.send('read-latest-thread', null);
 });
 
 /**
@@ -85,7 +90,7 @@ function setUserStatus(status) {
 	if (status != "online" && status != "idle" && status != "dnd" && status != "hidden")
 		status = "idle";
 
-	skypeView.executeJavaScript('document.querySelector(".PresencePopup-status--' + status + '").click()');
+	skypeView.send('status-change', status);
 }
 
 electron.ipcRenderer.on("status-change", function(event, status) {
@@ -120,8 +125,6 @@ skypeView.addEventListener('page-title-updated', function(event) {
 });
 
 skypeView.addEventListener('new-window', function(event) {
-	let protocol = url.parse(event.url).protocol;
-
 	// Skype added some weird window.open hack. For what reason, who knows.
 	// Could probably fix this upstream in electron, but this is a temp solution
 	if (event.url === 'https://web.skype.com/en/undefined') {
@@ -129,10 +132,23 @@ skypeView.addEventListener('new-window', function(event) {
 		return;
 	}
 
-	if (Settings.NativeImageViewer && event.url.indexOf('imgpsh_fullsize') >= 0) {
-		electron.ipcRenderer.send('image:download', event.url);
-	} else if (protocol === 'http:' || protocol === 'https:') {
-		// Open links in external browser
-		electron.shell.openExternal(event.url);
-	}
+	ipcHandler['open-link'](event.url);
 });
+
+skypeView.addEventListener('ipc-message', function(event) {
+	ipcHandler[event.channel].apply(null, event.args);
+});
+
+let ipcHandler = {
+	'open-link': function(href) {
+		console.log('Opening: ', href);
+		let protocol = url.parse(href).protocol;
+
+		if (Settings.NativeImageViewer && href.indexOf('imgpsh_fullsize') >= 0) {
+			electron.ipcRenderer.send('image:download', href);
+		} else if (protocol === 'http:' || protocol === 'https:') {
+			// Open links in external browser
+			electron.shell.openExternal(href);
+		}
+	}
+}

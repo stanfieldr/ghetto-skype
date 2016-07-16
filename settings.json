@@ -3,6 +3,7 @@
 	"MicrosoftAccount": false,
 	"NativeImageViewer": false,
 	"Mute": false,
+	"EnableNotifications": true,
 	"OpenWhenMessaged": false,
 	"ProxyRules": "",
 	"ZoomFactor": 1.0

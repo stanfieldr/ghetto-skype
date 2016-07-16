@@ -14,8 +14,9 @@
 	</head>
 	<body>
 		<webview id="skype-view"
-			useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586"
-			src='loading.html'
+			src="loading.html"
+			useragent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
+			preload="./preload.js"
 			partition="persist:skype"></webview>
 		<script>require('./skype')</script>
 	</body>

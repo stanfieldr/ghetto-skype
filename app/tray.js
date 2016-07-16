@@ -29,6 +29,7 @@ exports.setNotificationCount = function(count) {
 	if (count > 0) {
 		image += 'skype-1.png';
 		if (GhettoSkype.settings.OpenWhenMessaged) {
+			GhettoSkype.sendToRenderers('read-latest-thread');
 			mainWindow.show();
 			mainWindow.focus();
 		}
