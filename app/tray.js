@@ -52,25 +52,6 @@ function toggleOpen() {
 
 let contextMenu = new electron.Menu.buildFromTemplate([
 	{
-		label: "Online",
-		click: () => mainWindow.webContents.send("status-change", "online")
-	},
-	{
-		label: "Away",
-		click: () => mainWindow.webContents.send("status-change", "idle")
-	},
-	{
-		label: "Busy",
-		click: () => mainWindow.webContents.send("status-change", "dnd")
-	},
-	{
-		label: "Invisible",
-		click: () => mainWindow.webContents.send("status-change", "hidden")
-	},
-	{
-		type: 'separator'
-	},
-	{
 		label: "Open",
 		click: () => {
 			mainWindow.show();
@@ -78,10 +59,32 @@ let contextMenu = new electron.Menu.buildFromTemplate([
 		}
 	},
 	{
+		label: "Online Status",
+		submenu: [
+			{
+				label: "Online",
+				click: () => mainWindow.webContents.send("status-change", "online")
+			},
+			{
+				label: "Away",
+				click: () => mainWindow.webContents.send("status-change", "idle")
+			},
+			{
+				label: "Busy",
+				click: () => mainWindow.webContents.send("status-change", "dnd")
+			},
+			{
+				label: "Invisible",
+				click: () => mainWindow.webContents.send("status-change", "hidden")
+			}
+		]
+	},
+	{
 		label: "Settings",
 		click: () => GhettoSkype.openSettings()
 	},
 	{
+		role: "quit",
 		label: "Exit",
 		click: () => electron.app.quit()
 	}

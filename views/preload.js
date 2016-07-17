@@ -23,9 +23,7 @@
 		if (settings.EnableNotifications) {
 			window.Notification = Notification;
 		} else {
-			console.log('Before: ', window.Notification);
 			delete window.Notification;
-			console.log('After: ', window.Notification);
 		}
 	});
 
