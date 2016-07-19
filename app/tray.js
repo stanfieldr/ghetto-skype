@@ -28,12 +28,14 @@ exports.setNotificationCount = function(count) {
 
 	if (count > 0) {
 		image += 'skype24-1.png';
+		mainWindow.flashFrame(true);
 		if (GhettoSkype.settings.OpenWhenMessaged) {
 			GhettoSkype.sendToRenderers('read-latest-thread');
 			mainWindow.show();
 			mainWindow.focus();
 		}
 	} else {
+		mainWindow.flashFrame(false);
 		image += 'skype24.png';
 	}
 

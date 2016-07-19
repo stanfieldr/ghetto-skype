@@ -46,7 +46,7 @@ class GhettoSkype {
 		let file = this.imageCache[url];
 		if (file) {
 			if (file.complete) {
-				spawn('xdg-open', [file.path]);
+				electron.shell.openItem(file.path);
 			}
 
 			// Pending downloads intentionally do not proceed
@@ -77,7 +77,7 @@ class GhettoSkype {
 				tmpWindow.destroy();
 				tmpWindow = null;
 
-				spawn('xdg-open', [file.path]);
+				electron.shell.openItem(file.path);
 
 				file.complete = true;
 			});
