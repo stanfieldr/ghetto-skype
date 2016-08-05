@@ -37,5 +37,25 @@
 				ipc.sendToHost('open-link', $elem.prop('href'));
 			}
 		});
+
+		// Every 5 mintues check if user activity
+		// If they are not active refresh skype... fixes bug on skype's end
+		if (settings.RefreshInterval) {
+			setInterval(checkActivity, settings.RefreshInterval * 60000);
+
+			$(window).on('mousemove input', function() {
+				hasActivity = true;
+			});
+
+			let hasActivity;
+
+			function checkActivity() {
+				if (!hasActivity) {
+					window.location = window.location;
+				}
+
+				hasActivity = false;
+			}
+		}
 	});
 }());

@@ -97,7 +97,7 @@ class GhettoSkype {
 			autoHideMenuBar: true,
 			center: true,
 			width: 800,
-			height: 535,
+			height: 600,
 			webPreferences: {
 				zoomFactor: this.settings.ZoomFactor
 			}

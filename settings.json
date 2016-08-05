@@ -6,5 +6,6 @@
 	"EnableNotifications": true,
 	"OpenWhenMessaged": false,
 	"ProxyRules": "",
-	"ZoomFactor": 1.0
+	"ZoomFactor": 1.0,
+	"RefreshInterval": 30
 }

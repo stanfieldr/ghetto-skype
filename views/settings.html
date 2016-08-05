@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Skype</title>
+		<title>Settings</title>
 
 		<script>
 			window.$ = window.jQuery = require('../assets/jquery-2.2.3.min');
@@ -17,111 +17,124 @@
 
 			.page-controls {
 				float: right;
+				margin-right: 0.5em;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="container">
-			<h1 class="ui dividing header">Settings</h1>
-			<div class="row">
-				<div class="ui column">
-					<label>
-						Theme (requires restart)
+		<table class="ui table">
+			<thead>
+				<tr>
+					<th>Setting</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
 						<select name="Theme">
 							<option value="">Web Skype</option>
 							<option value="dark">Dark</option>
 						</select>
-					</label>
+					</td>
+					<td>
+						Sets a custom theme. This will take effect after restarting Ghetto Skype
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="ui input">
+							<input type="number" name="RefreshInterval" size="3"/>
+						</div>
+					</td>
+					<td>
+						<p>Web Skype has a bug where it stops sending/recieving messages for unknown reasons. Ghetto Skype can
+							fix it by refreshing your page on an interval in minutes.</p>
 
-					<table class="ui table">
-						<thead>
-							<tr>
-								<th>Setting</th>
-								<th>Description</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<div class="ui toggle checkbox">
-										<input name="AutoStart" type="checkbox" class="hidden">
-									</div>
-								</td>
-								<td>
-									Automatically start Skype when you login to your desktop environment
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="ui toggle checkbox">
-										<input name="StartMinimized" type="checkbox" class="hidden">
-									</div>
-								</td>
-								<td>
-									Start Skype hidden in the tray
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="ui toggle checkbox">
-										<input name="NativeImageViewer" type="checkbox" class="hidden">
-									</div>
-								</td>
-								<td>
-									Use default image viewer instead of maximizing images in a browser tab
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="ui toggle checkbox">
-										<input name="Mute" type="checkbox" class="hidden">
-									</div>
-								</td>
-								<td>
-									Mute Skype Notification Sound
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="ui toggle checkbox">
-										<input name="EnableNotifications" type="checkbox" class="hidden">
-									</div>
-								</td>
-								<td>
-									Enable Notifications
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="ui toggle checkbox">
-										<input name="OpenWhenMessaged" type="checkbox" class="hidden">
-									</div>
-								</td>
-								<td>
-									Open Ghetto Skype window when you recieve a message
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="ui toggle checkbox">
-										<input name="MicrosoftAccount" type="checkbox" class="hidden">
-									</div>
-								</td>
-								<td>
-									If you use a Microsoft account and this option is enabled, you will automatically
-									be logged in. If you need to login to Skype, you will skip
-									the Skype login form and go directly to the Microsoft login page.
-								</td>
-							</tr>
-						</tbody>
-					</table>
+						<p>For example, if you set the textbox to 5 then it would refresh Skype every 5 minutes. However,
+						it will not refresh if you moved your mouse, entered some text or clicked inside of Skype within the last 5 minutes.</p>
 
-					<div class="page-controls">
-						<button class="ui secondary button">Cancel</button>
-						<button class="ui primary button">Save</button>
-					</div>
-				</div>
-			</div>
+						<strong>To disable this option, set the textbox to 0</b>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="ui toggle checkbox">
+							<input name="AutoStart" type="checkbox" class="hidden">
+						</div>
+					</td>
+					<td>
+						Automatically start Skype when you login to your desktop environment
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="ui toggle checkbox">
+							<input name="StartMinimized" type="checkbox" class="hidden">
+						</div>
+					</td>
+					<td>
+						Start Skype hidden in the tray
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="ui toggle checkbox">
+							<input name="NativeImageViewer" type="checkbox" class="hidden">
+						</div>
+					</td>
+					<td>
+						Use default image viewer instead of maximizing images in a browser tab
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="ui toggle checkbox">
+							<input name="Mute" type="checkbox" class="hidden">
+						</div>
+					</td>
+					<td>
+						Mute Skype Notification Sound
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="ui toggle checkbox">
+							<input name="EnableNotifications" type="checkbox" class="hidden">
+						</div>
+					</td>
+					<td>
+						Enable Notifications
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="ui toggle checkbox">
+							<input name="OpenWhenMessaged" type="checkbox" class="hidden">
+						</div>
+					</td>
+					<td>
+						Open Ghetto Skype window when you recieve a message
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="ui toggle checkbox">
+							<input name="MicrosoftAccount" type="checkbox" class="hidden">
+						</div>
+					</td>
+					<td>
+						If you use a Microsoft account and this option is enabled, you will automatically
+						be logged in. If you need to login to Skype, you will skip
+						the Skype login form and go directly to the Microsoft login page.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="page-controls">
+			<button class="ui secondary button">Cancel</button>
+			<button class="ui primary button">Save</button>
 		</div>
 		<script>
 			var os       = require('os');
@@ -164,9 +177,13 @@
 			}
 
 			$('.checkbox').checkbox();
-			$('select').change(function() {
+			$('select, .ui.input input').change(function() {
 				let name  = this.name;
 				let value = this.value;
+
+				if ($(this).is('[type="number"]')) {
+					value = Number(value);
+				}
 
 				Settings[name] = value;
 			});
