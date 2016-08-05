@@ -96,8 +96,8 @@ class GhettoSkype {
 		this.settingsWindow = this.createWindow({
 			autoHideMenuBar: true,
 			center: true,
-			width: 800,
-			height: 600,
+			width: 900,
+			height: 625,
 			webPreferences: {
 				zoomFactor: this.settings.ZoomFactor
 			}
