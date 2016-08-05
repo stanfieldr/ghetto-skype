@@ -6,7 +6,10 @@
 
 	// use local jquery in this scope
 	let $;
-	let settings = ipc.sendSync('settings:get');
+	let settings       = ipc.sendSync('settings:get');
+	let activityHandle = null;
+	let hasActivity    = false;
+
 	if (!settings.EnableNotifications) {
 		delete window.Notification;
 	}
@@ -25,6 +28,8 @@
 		} else {
 			delete window.Notification;
 		}
+
+		setActivityHandle(settings.RefreshInterval);
 	});
 
 	window.addEventListener("DOMContentLoaded", function(event) {
@@ -41,21 +46,24 @@
 		// Every 5 mintues check if user activity
 		// If they are not active refresh skype... fixes bug on skype's end
 		if (settings.RefreshInterval) {
-			setInterval(checkActivity, settings.RefreshInterval * 60000);
+			setActivityHandle(settings.RefreshInterval);
 
 			$(window).on('mousemove input', function() {
 				hasActivity = true;
 			});
-
-			let hasActivity;
-
-			function checkActivity() {
-				if (!hasActivity) {
-					window.location = window.location;
-				}
-
-				hasActivity = false;
-			}
 		}
 	});
+
+	function setActivityHandle(minutes) {
+		clearInterval(activityHandle);
+		setInterval(checkActivity, minutes * 60000);
+	}
+
+	function checkActivity() {
+		if (!hasActivity) {
+			window.location = window.location;
+		}
+
+		hasActivity = false;
+	}
 }());
