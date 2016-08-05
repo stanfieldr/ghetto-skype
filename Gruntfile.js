@@ -26,7 +26,10 @@ module.exports = function(grunt) {
 				options: {
 					bin: './Ghetto Skype',
 					icon: "./assets/tray/skype-big.png",
-					arch: arch === 'x64' ? 'x86_64' : 'x86'
+					arch: arch === 'x64' ? 'x86_64' : 'x86',
+					depends: [
+						'libXScrnSaver'
+					]
 				},
 
 				src: 'build/Ghetto Skype-linux-' + arch + '/',
