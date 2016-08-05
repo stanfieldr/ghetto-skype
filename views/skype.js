@@ -108,9 +108,11 @@ skypeView.addEventListener('did-fail-load', function(event) {
 });
 
 skypeView.addEventListener('dom-ready', boot);
+skypeView.addEventListener('did-stop-loading', function() {
+	skypeView.getWebContents().setZoomFactor(Settings.ZoomFactor);
+});
+
 skypeView.addEventListener('did-navigate', function(event) {
-	// For some reason, electron resets the zoom level for each page...
-	skypeView.setZoomFactor(Settings.ZoomFactor);
 	if (Settings.Theme && event.url.indexOf('https://web.skype.com') >= 0)
 		loadTheme(Settings.Theme);
 });

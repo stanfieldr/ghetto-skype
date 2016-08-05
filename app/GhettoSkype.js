@@ -14,7 +14,9 @@ let settingsFile = path.join(electron.app.getPath('userData'), 'settings.json');
 try {
 	let tmpSettings = JSON.parse(fs.readFileSync(settingsFile));
 	Object.assign(settings, tmpSettings);
-} catch(e){}
+} catch(e){
+	console.log('Error', e);
+}
 
 class GhettoSkype {
 	constructor(settings) {
@@ -33,7 +35,6 @@ class GhettoSkype {
 
 	createWindow(options) {
 		let window = new BrowserWindow(options);
-
 		let index  = this.uniqID++;
 
 		this.windows[index] = window;
