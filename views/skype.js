@@ -39,21 +39,6 @@ function checkMicrosoftAccount(event, currentURL) {
 	}
 }
 
-/**
- * Decides if the user has any unread notifications and
- * provides the appropriate feedback to the tray icon
- */
-function checkTrayIcon(event) {
-	let result = /^\((\d+)\)/.exec(event.title);
-	let count  = 0;
-
-	if (result !== null && result.length === 2) {
-		count = Number(result[1]);
-	}
-
-	TrayIcon.setNotificationCount(count);
-}
-
 function boot() {
 	skypeView.removeEventListener('dom-ready', boot);
 
@@ -123,7 +108,6 @@ skypeView.addEventListener('page-title-updated', function(event) {
 	title.innerHTML = event.title;
 
 	checkMicrosoftAccount(event, currentURL);
-	checkTrayIcon(event);
 });
 
 skypeView.addEventListener('new-window', function(event) {
@@ -152,5 +136,9 @@ let ipcHandler = {
 			// Open links in external browser
 			electron.shell.openExternal(href);
 		}
+	},
+
+	'notification-count': function(count) {
+		TrayIcon.setNotificationCount(count);
 	}
 }

@@ -32,6 +32,17 @@
 		setActivityHandle(settings.RefreshInterval);
 	});
 
+	setInterval(function() {
+		let hasNotifications = document.querySelector('.unseenNotifications');
+		let count = 0;
+
+		if (hasNotifications) {
+			count = 1;
+		}
+
+		ipc.sendToHost('notification-count', count);
+	}, 1000);
+
 	window.addEventListener("DOMContentLoaded", function(event) {
 		$ = require('../assets/jquery-2.2.3.min');
 
