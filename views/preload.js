@@ -19,7 +19,7 @@
 	});
 
 	ipc.on('read-latest-thread', function(event) {
-		document.querySelector(".recent.message").click();
+		$('.unseenNotifications:first').closest('.message').get(0).click();
 	});
 
 	ipc.on('settings-updated', function(event, settings) {
@@ -31,17 +31,6 @@
 
 		setActivityHandle(settings.RefreshInterval);
 	});
-
-	setInterval(function() {
-		let hasNotifications = document.querySelector('.unseenNotifications');
-		let count = 0;
-
-		if (hasNotifications) {
-			count = 1;
-		}
-
-		ipc.sendToHost('notification-count', count);
-	}, 1000);
 
 	window.addEventListener("DOMContentLoaded", function(event) {
 		$ = require('../assets/jquery-2.2.3.min');
@@ -63,6 +52,30 @@
 				hasActivity = true;
 			});
 		}
+
+		// Get an accurate notification count... we can't parse it out of the title
+		// because Web Skype has a bug
+		let lastCount = 0;
+		setInterval(function() {
+			// Gets a numeric representation of each thread's unread messages
+			let unreadCounters = $('.unseenNotifications').map(function() {
+				return Number($(this).find('p').text());
+			});
+
+			// Sums them all up
+			let count = 0;
+			for (let i = 0; i < unreadCounters.length; i++) {
+				count += unreadCounters[i];
+			}
+
+			// We currently do not have a way to determine who last messaged the user
+			// TODO: figure this out by intercepting HTML5 notifications
+			if (count > 0 && lastCount !== 0)
+				return;
+
+			lastCount = count;
+			ipc.sendToHost('notification-count', count);
+		}, 500);
 	});
 
 	function setActivityHandle(minutes) {

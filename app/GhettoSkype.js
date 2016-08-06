@@ -90,6 +90,7 @@ class GhettoSkype {
 	openSettings() {
 		if (this.settingsWindow) {
 			this.settingsWindow.show();
+			this.settingsWindow.focus();
 			return;
 		}
 
@@ -102,6 +103,7 @@ class GhettoSkype {
 				zoomFactor: this.settings.ZoomFactor
 			}
 		});
+		this.settingsWindow.focus();
 
 		if (this.settings.Theme) {
 			let folder = path.join(__dirname, '..', 'themes', this.settings.Theme);

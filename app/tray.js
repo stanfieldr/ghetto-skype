@@ -25,12 +25,15 @@ exports.setNotificationCount = function(count) {
 	}
 
 	let image = basePath;
-
 	if (count > 0) {
 		image += 'skype24-1.png';
 		mainWindow.flashFrame(true);
 		if (GhettoSkype.settings.OpenWhenMessaged) {
-			GhettoSkype.sendToRenderers('read-latest-thread');
+			// Do not click threads once a user reads one
+			if (count > lastCount) {
+				GhettoSkype.sendToRenderers('read-latest-thread');
+			}
+
 			mainWindow.show();
 			mainWindow.focus();
 		}
