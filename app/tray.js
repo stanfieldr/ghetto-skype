@@ -16,6 +16,7 @@ exports.init = function(window) {
 	trayIcon   = new electron.Tray(`${basePath}skype24.png`);
 
 	trayIcon.on('click', toggleOpen);
+	trayIcon.setToolTip('Ghetto Skype');
 	trayIcon.setContextMenu(contextMenu);
 };
 
