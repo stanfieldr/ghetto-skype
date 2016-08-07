@@ -1,7 +1,7 @@
 # Ghetto Skype
 Are you tired of a buggy 32 bit official Skype client? Then Ghetto Skype is for you!
 
-Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unofficial-client) for coming up with this idea. His version uses node webkit whereas mine uses Electron. This means you get a few extra goodies like notifications from Electron and a tray icon.
+Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unofficial-client) for coming up with this idea. His version uses node webkit whereas mine uses Electron. This means you get a few extra goodies like notifications from Electron.
 
 ![Screenshot](assets/screenshot.png)
 
@@ -16,25 +16,18 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 
 ### Cons
 - Video calls do not work and you have to initiate the audio call (if they call you, it wants you to install plugin). I'm currently looking at options to get around this.
-- File Transfer doesn't work if your contacts use an older version of Skype
 
 ## Installing
 
 You can download the RPM or DEB package on the [releases page](https://github.com/stanfieldr/ghetto-skype/releases)
 or you can build from source with the instructions below.
 
-If you run Arch Linux, you can use the [AUR package](https://aur.archlinux.org/packages/ghetto-skype) techwiz24 created.
-
-#### Try it out
-
-You can take it for a test run without installing by opening a terminal, navigating to this directory, and typing:
-```bash
-[u@h ghetto-skype]$ npm install && npm start
-```
+If you run Arch Linux, you can use the [AUR package](https://aur.archlinux.org/packages/ghetto-skype) techwiz24 created. Please send any issues
+with the AUR package to [his repository](https://github.com/techwiz24/aur-ghetto-skype/issues).
 
 #### Dependencies
 
-You will need npm installed, I recommend [nvm](https://github.com/creationix/nvm) so you have the ability to use multiple node versions. It also fixes a common permission issue so you do not have to use sudo. However, if you have npm installed through your distro, that's all you need.
+You need a newer version of node/npm installed. If you already have node installed, please check that you are using version 6.3.1 or higher. If you have an older version installed or need to install it, I recommend installing [nvm](https://github.com/creationix/nvm) so you are not dependent on your distros version of node as it may be too old.
 
 ```bash
 # To build a RPM you need this:
@@ -42,6 +35,13 @@ $ sudo dnf install rpm-build
 
 # To build a DEB you need this:
 $ sudo apt-get install fakeroot dpkg
+```
+
+#### Try it out
+
+You can take it for a test run without installing by opening a terminal, navigating to this directory, and typing:
+```bash
+[u@h ghetto-skype]$ npm install && npm start
 ```
 
 #### Setup
