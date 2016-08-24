@@ -65,6 +65,13 @@ let contextMenu = new electron.Menu.buildFromTemplate([
 		}
 	},
 	{
+		label: "Reload/Refresh",
+		click: () => {
+			mainWindow.show();
+			mainWindow.reload();
+		}
+	},
+	{
 		label: "Online Status",
 		submenu: [
 			{
