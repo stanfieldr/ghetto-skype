@@ -6,6 +6,6 @@ Comment=An unofficial client of Skype for Linux, using Electron.
 Icon=/opt/ghetto-skype/assets/tray/skype-big.png
 Exec=npm --prefix /opt/ghetto-skype start
 NoDisplay=false
-Categories=Network;
+Categories=Internet;
 StartupNotify=false
 Terminal=false
