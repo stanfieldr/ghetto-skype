@@ -44,8 +44,12 @@ app.on('ready', function() {
 
 	mainWindow.on('close', function(event) {
 		if (!isQuiting) {
-			event.preventDefault();
-			mainWindow.hide();
+			if (settings.QuitByCloseWindow) {
+				app.quit()
+			} else {
+				event.preventDefault();
+				mainWindow.hide();
+			}
 		} else {
 			let size = mainWindow.getSize();
 			GhettoSkype.saveSettings(null, {

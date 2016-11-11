@@ -7,5 +7,6 @@
 	"OpenWhenMessaged": false,
 	"ProxyRules": "",
 	"ZoomFactor": 1.0,
-	"RefreshInterval": 30
+	"RefreshInterval": 30,
+	"QuitByCloseWindow": false
 }
