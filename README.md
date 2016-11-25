@@ -27,7 +27,7 @@ created. Please send any issues with the AUR package to [his repository](https:/
 
 #### Dependencies
 
-You need a newer version of node/npm installed. If you already have node installed, please check that you are using version 6.3.1 or higher. If you have an older version installed or need to install it, I recommend installing [nvm](https://github.com/creationix/nvm) so you are not dependent on your distros version of node as it may be too old.
+You need a newer version of node/npm installed. If you already have node installed, please check that you are using version 6.3.1 or higher. If you have an older version installed or need to install it, I recommend installing [nvm](https://github.com/creationix/nvm) so you are not dependent on your distros version of node as it may be too old. If you are installing node via Debian based distro, please make sure you install the nodejs-legacy package.
 
 ```bash
 # To build a RPM you need this:
