@@ -37,7 +37,7 @@
 
 		// Hacking the skype hack
 		document.addEventListener('click', function(event) {
-			var $elem = $(event.target).closest('a.thumbnail');
+			var $elem = $(event.target).closest('a[rel*="noopener"]');
 			if ($elem.length) {
 				ipc.sendToHost('open-link', $elem.prop('href'));
 			}
