@@ -29,7 +29,9 @@
 		$('.unseenNotifications:first').closest('.message').get(0).click();
 	});
 
-	ipc.on('settings-updated', function(event, settings) {
+	ipc.on('settings-updated', function(event, Settings) {
+		settings = Settings;
+
 		if (settings.EnableNotifications) {
 			window.Notification = Notification;
 		} else {
@@ -38,6 +40,27 @@
 
 		setActivityHandle(settings.RefreshInterval);
 	});
+
+	function stopIt(event) {
+		if (settings.AltSendKeys && event.keyCode === 13 && event.target.id === "chatInputAreaWithQuotes") {
+			if (event.ctrlKey) {
+				$('.send').click();
+			} else {
+				// hack to intercept sending message
+				var tmp = $('#chatInputAreaWithQuotes').val();
+				$('#chatInputAreaWithQuotes').get(0).value = '';
+				$('#chatInputAreaWithQuotes').trigger('blur');
+				setTimeout(function() {
+					$('#chatInputAreaWithQuotes').focus();
+					$('#chatInputAreaWithQuotes').get(0).value = tmp + "\n";
+					$('#chatInputAreaWithQuotes').trigger('blur');
+					$('#chatInputAreaWithQuotes').focus();
+				}, 0);
+			}
+		}
+	}
+
+	window.addEventListener('keydown', stopIt, true);
 
 	window.addEventListener("DOMContentLoaded", function(event) {
 		$ = require('../assets/jquery-2.2.3.min');
