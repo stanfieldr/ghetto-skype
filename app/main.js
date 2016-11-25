@@ -20,13 +20,13 @@ if (shouldQuit) {
 }
 
 app.on('ready', function() {
-	let isQuiting = false;
+	var isQuiting = false;
 	let settings  = GhettoSkype.settings;
-	mainWindow = GhettoSkype.createWindow({
+	mainWindow    = GhettoSkype.createWindow({
 		autoHideMenuBar: true,
-		center: true,
-		show: !settings.StartMinimized,
-		icon: app.getAppPath() + '/assets/tray/skype-big.png'
+		center         : true,
+		show           : !settings.StartMinimized,
+		icon           : app.getAppPath() + '/assets/tray/skype-big.png'
 	});
 
 	if (settings.mainWindow) {
@@ -43,7 +43,7 @@ app.on('ready', function() {
 	});
 
 	mainWindow.on('close', function(event) {
-		var isQuiting = isQuiting || settings.QuitByCloseWindow;
+		isQuiting = isQuiting || settings.QuitByCloseWindow;
 		if (isQuiting) {
 			let size = mainWindow.getSize();
 			GhettoSkype.saveSettings(null, {

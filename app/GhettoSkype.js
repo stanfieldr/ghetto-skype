@@ -15,7 +15,7 @@ try {
 	let tmpSettings = JSON.parse(fs.readFileSync(settingsFile));
 	Object.assign(settings, tmpSettings);
 } catch(e){
-	console.log('Error', e);
+	console.log('No settings file found for this user, you can change settings by right clicking the tray icon.');
 }
 
 class GhettoSkype {
