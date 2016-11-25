@@ -65,7 +65,7 @@ app.on('ready', function() {
 
 	TrayIcon.init(mainWindow);
 
-	let filePath = path.join(__dirname, '..', 'views', 'skype.html');
+	let filePath = path.join(__dirname, 'views', 'skype.html');
 	mainWindow.loadURL('file://' + filePath);
 
 	// By default, electron will navigate the browser window to files that are dragged

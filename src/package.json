@@ -1,0 +1,12 @@
+{
+  "name": "ghetto-skype",
+  "version": "1.4.1",
+  "main": "./main.js",
+  "author": "Robert Stanfield <robert@stanfield.it>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "mime": "^1.3.4",
+    "stylus": "^0.54.5",
+    "tmp": "0.0.28"
+  }
+}

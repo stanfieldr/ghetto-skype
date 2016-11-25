@@ -5,7 +5,7 @@ var fs     = require('fs');
 var path   = require('path');
 
 var url       = require('url');
-var TrayIcon  = electron.remote.require('../app/tray');
+var TrayIcon  = electron.remote.require('./tray');
 var Settings  = electron.ipcRenderer.sendSync('settings:get');
 
 var skypeView = document.getElementById('skype-view');
