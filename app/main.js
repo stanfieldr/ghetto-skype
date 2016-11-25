@@ -43,14 +43,8 @@ app.on('ready', function() {
 	});
 
 	mainWindow.on('close', function(event) {
-		if (!isQuiting) {
-			if (settings.QuitByCloseWindow) {
-				app.quit()
-			} else {
-				event.preventDefault();
-				mainWindow.hide();
-			}
-		} else {
+		var isQuiting = isQuiting || settings.QuitByCloseWindow;
+		if (isQuiting) {
 			let size = mainWindow.getSize();
 			GhettoSkype.saveSettings(null, {
 				mainWindow: {
@@ -58,6 +52,10 @@ app.on('ready', function() {
 					height: size[1]
 				}
 			});
+			app.quit();
+		} else {
+			event.preventDefault();
+			mainWindow.hide();
 		}
 	});
 
