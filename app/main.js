@@ -38,6 +38,10 @@ app.on('ready', function() {
 		isQuiting = true;
 	});
 
+	mainWindow.on('focus', function() {
+		GhettoSkype.sendToRenderers('opened-main-window');
+	});
+
 	mainWindow.on('show', function() {
 		mainWindow.focus();
 	});

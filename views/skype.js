@@ -21,6 +21,11 @@ electron.ipcRenderer.on('read-latest-thread', function() {
 	skypeView.send('read-latest-thread', null);
 });
 
+electron.ipcRenderer.on('opened-main-window', function() {
+	skypeView.focus();
+	skypeView.send('opened-main-window', null);
+});
+
 /**
  * If the user has a Microsoft account, we skip the Skype login
  * form and go straight to the Microsoft login page
@@ -127,7 +132,6 @@ skypeView.addEventListener('ipc-message', function(event) {
 
 let ipcHandler = {
 	'open-link': function(href) {
-		console.log('Opening: ', href);
 		let protocol = url.parse(href).protocol;
 
 		if (Settings.NativeImageViewer && href.indexOf('imgpsh_fullsize') >= 0) {

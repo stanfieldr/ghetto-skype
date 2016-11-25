@@ -14,6 +14,13 @@
 		delete window.Notification;
 	}
 
+	ipc.on('opened-main-window', function(event) {
+		// Not exactly sure what's happening here, but without setTimeout it unfocuses
+		setTimeout(function() {
+			document.getElementById('chatInputAreaWithQuotes').focus();
+		}, 0);
+	});
+
 	ipc.on('status-change', function(event, status) {
 		document.querySelector(".PresencePopup-status--" + status).click();
 	});
