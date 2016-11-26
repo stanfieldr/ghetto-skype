@@ -1,8 +1,7 @@
 const electron      = require('electron');
+const Settings      = require('./Settings.js');
 const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
-
-const GhettoSkype = require('./GhettoSkype');
 
 let trayIcon       = null;
 let mainWindow     = null;
@@ -29,12 +28,7 @@ exports.setNotificationCount = function(count) {
 	if (count > 0) {
 		image += 'skype24-1.png';
 		mainWindow.flashFrame(true);
-		if (GhettoSkype.settings.OpenWhenMessaged) {
-			// Do not click threads once a user reads one
-			if (count > lastCount) {
-				GhettoSkype.sendToRenderers('read-latest-thread');
-			}
-
+		if (Settings.get('OpenWhenMessaged')) {
 			mainWindow.show();
 			mainWindow.focus();
 		}
@@ -46,6 +40,8 @@ exports.setNotificationCount = function(count) {
 	trayIcon.setImage(image);
 	lastCount = count;
 };
+
+electron.ipcMain.on('notification-count', (e, count) => exports.setNotificationCount(count));
 
 function toggleOpen() {
 	if (mainWindow.isFocused()) {
@@ -94,7 +90,43 @@ let contextMenu = new electron.Menu.buildFromTemplate([
 	},
 	{
 		label: "Settings",
-		click: () => GhettoSkype.openSettings()
+		click: () => {
+			if (settingsWindow) {
+				settingsWindow.show();
+				settingsWindow.focus();
+				return;
+			}
+
+			settingsWindow = new BrowserWindow({
+				autoHideMenuBar: true,
+				center: true,
+				width : 900,
+				height: 625,
+				parent: mainWindow,
+				webPreferences: {
+					zoomFactor: Settings.get('ZoomFactor')
+				}
+			});
+
+			settingsWindow.focus();
+
+			if (Settings.get('Theme')) {
+				let folder = path.join(__dirname, 'themes', Settings.get('Theme'));
+				let p = path.join(folder, 'settings.styl');
+				fs.readFile(p, 'utf8', (err, scss) => {
+					stylus(scss)
+						.include(folder)
+						.render((err, css) => {
+							settingsWindow.webContents.once('did-finish-load', () => settingsWindow.webContents.insertCSS(css));
+						});
+				});
+			}
+
+			settingsWindow.on('closed', () => settingsWindow = null);
+
+			let filePath = path.join(__dirname, 'views', 'settings.html');
+			settingsWindow.loadURL("file://" + filePath);
+		}
 	},
 	{
 		role: "quit",

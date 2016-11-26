@@ -7,6 +7,7 @@
   "private": true,
   "main": "main.js",
   "scripts": {
+    "rebuild": "electron-rebuild -v1.4.8 -f -m src/",
     "build-linux": "electron-packager ./src --version 1.4.8 --platform linux --icon ./src/assets/tray/skype-big.png --out ./dist --overwrite",
     "start": "electron src/"
   },
@@ -14,12 +15,18 @@
     "type": "git",
     "url": "git+https://github.com/stanfieldr/ghetto-skype.git"
   },
-  "keywords": [ "web", "skype", "wrapper" ],
+  "keywords": [
+    "web",
+    "skype",
+    "wrapper"
+  ],
   "bugs": {
     "url": "https://github.com/stanfieldr/ghetto-skype/issues"
   },
   "homepage": "https://github.com/stanfieldr/ghetto-skype#readme",
   "devDependencies": {
-    "electron-packager": "^8.3.0"
+    "electron": "^1.4.8",
+    "electron-packager": "^8.3.0",
+    "electron-rebuild": "^1.4.0"
   }
 }

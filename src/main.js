@@ -1,13 +1,12 @@
-const {app}       = require('electron');
-const fs          = require('fs');
-const path        = require('path');
-const GhettoSkype = require('./GhettoSkype');
-const TrayIcon    = require('./tray');
-const tmp         = require('tmp');
+const electron = require('electron');
+const path     = require('path');
+const TrayIcon = require('./tray');
+const Settings = require('./Settings.js');
 
-let mainWindow = null;
+const {app} = electron;
+let mainWindow;
 
-const shouldQuit = app.makeSingleInstance(() => {
+let shouldQuit = app.makeSingleInstance(() => {
 	if (mainWindow) {
 		mainWindow.show();
 		mainWindow.focus();
@@ -19,44 +18,48 @@ if (shouldQuit) {
 	return;
 }
 
-app.on('ready', function() {
-	var isQuiting = false;
-	let settings  = GhettoSkype.settings;
-	mainWindow    = GhettoSkype.createWindow({
-		autoHideMenuBar: true,
-		center         : true,
-		show           : !settings.StartMinimized,
-		icon           : app.getAppPath() + '/assets/tray/skype-big.png'
-	});
+Settings.init();
 
-	if (settings.mainWindow) {
-		let {width, height} = settings.mainWindow;
-		mainWindow.setSize(width, height);
+app.on('before-quit', () => shouldQuit = true);
+app.on('ready', () => {
+	// Restore the dimensions of main window from the last time it was run
+	let width, height;
+	if (Settings.get('mainWindow')) {
+		width  = Settings.get('mainWindow').width;
+		height = Settings.get('mainWindow').height;
 	}
 
-	app.on('before-quit', function() {
-		isQuiting = true;
+	mainWindow = new electron.BrowserWindow({
+		width : width  || 800,
+		height: height || 600,
+		show  : !Settings.get('StartMinimized'),
+		icon  : app.getAppPath() + '/assets/tray/skype-big.png',
+
+		webPreferences: {
+			partition      : 'persist:skype',
+			preload        : path.join(__dirname, 'skype.js'),
+			nodeIntegration: false,
+			webaudio       : Settings.get('Mute'),
+			zoomFactor     : Settings.get('ZoomFactor')
+		}
 	});
 
-	mainWindow.on('focus', function() {
-		GhettoSkype.sendToRenderers('opened-main-window');
-	});
-
-	mainWindow.on('show', function() {
-		mainWindow.focus();
-	});
+	if (Settings.get('ProxyRules')) {
+		mainWindow.webContents.session.setProxy({
+			proxyRules: Settings.get('ProxyRules')
+		}, () => {});
+	}
 
 	mainWindow.on('close', function(event) {
-		isQuiting = isQuiting || settings.QuitByCloseWindow;
-		if (isQuiting) {
+		shouldQuit = shouldQuit || Settings.get('QuitByCloseWindow');
+		if (shouldQuit) {
 			let size = mainWindow.getSize();
-			GhettoSkype.saveSettings(null, {
-				mainWindow: {
-					width:  size[0],
-					height: size[1]
-				}
+			Settings.set('mainWindow', {
+				width : size[0],
+				height: size[1]
 			});
-			app.quit();
+
+			Settings.save().then(() => app.quit());
 		} else {
 			event.preventDefault();
 			mainWindow.hide();
@@ -64,13 +67,75 @@ app.on('ready', function() {
 	});
 
 	TrayIcon.init(mainWindow);
-
-	let filePath = path.join(__dirname, 'views', 'skype.html');
-	mainWindow.loadURL('file://' + filePath);
-
-	// By default, electron will navigate the browser window to files that are dragged
-	// on top of it, but we want the files to be handled by Web Skype
-	mainWindow.webContents.on('will-navigate', function(event) {
-		event.preventDefault();
-	});
+	mainWindow.loadURL('https://web.skype.com/en');
 });
+
+electron.ipcMain.on('open-link', (e, href) => {
+	let protocol = require('url').parse(href).protocol;
+
+	console.log(href, href.indexOf('imgpsh_fullsize') >= 0);
+	if (href.indexOf('imgpsh_fullsize') >= 0) {
+		console.log('Native: ', Settings.get('NativeImageViewer'));
+		if (Settings.get('NativeImageViewer')) {
+			downloadImage(href);
+		} else {
+			let tmp = new electron.BrowserWindow({
+				show: true,
+				webPreferences: {
+					partition      : 'persist:skype',
+					nodeIntegration: false,
+					zoomFactor     : Settings.get('ZoomFactor')
+				}
+			});
+
+			tmp.loadURL(href);
+		}
+	} else if (protocol === 'http:' || protocol === 'https:') {
+		electron.shell.openExternal(href);
+	}
+});
+
+let imageCache = {};
+function downloadImage(url) {
+	let file = imageCache[url];
+	if (file) {
+		if (file.complete) {
+			electron.shell.openItem(file.path);
+		}
+
+		// Pending downloads intentionally do not proceed
+		return;
+	}
+
+	let tmpWindow = new electron.BrowserWindow({
+		show: false,
+		webPreferences: {
+			partition: 'persist:skype'
+		}
+	});
+
+	if (Settings.get('ProxyRules')) {
+		tmpWindow.webContents.session.setProxy({
+			proxyRules: Settings.get('ProxyRules')
+		}, () => {});
+	}
+
+	tmpWindow.webContents.session.once('will-download', (event, downloadItem) => {
+		imageCache[url] = file = {
+			path: require('tmp').tmpNameSync() + '.' + require('mime').extension(downloadItem.getMimeType()),
+			complete: false
+		};
+
+		downloadItem.setSavePath(file.path);
+		downloadItem.once('done', () => {
+			tmpWindow.destroy();
+			tmpWindow = null;
+
+			electron.shell.openItem(file.path);
+
+			file.complete = true;
+		});
+	});
+
+	tmpWindow.webContents.downloadURL(url);
+}

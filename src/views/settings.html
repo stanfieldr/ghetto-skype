@@ -130,18 +130,6 @@
 				<tr>
 					<td>
 						<div class="ui toggle checkbox">
-							<input name="MicrosoftAccount" type="checkbox" class="hidden">
-						</div>
-					</td>
-					<td>
-						If you use a Microsoft account and this option is enabled, you will automatically
-						be logged in. If you need to login to Skype, you will skip
-						the Skype login form and go directly to the Microsoft login page.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="ui toggle checkbox">
 							<input name="QuitByCloseWindow" type="checkbox" class="hidden">
 						</div>
 					</td>
@@ -157,29 +145,31 @@
 			<button class="ui primary button">Save</button>
 		</div>
 		<script>
-			var os       = require('os');
-			var fs       = require('fs');
-			var path     = require('path');
-			var electron = require('electron');
-			var Settings = electron.ipcRenderer.sendSync('settings:get');
+			var os        = require('os');
+			var fs        = require('fs');
+			var path      = require('path');
+			var electron  = require('electron');
+			var settings  = electron.ipcRenderer.sendSync('get-settings');
+			var AutoStart = false;
 
 			let autostartFile = os.homedir() + "/.config/autostart/ghetto-skype.desktop";
 
 			fs.access(autostartFile, fs.F_OK, (err) => {
-				Settings.AutoStart = !err;
-				for (var key in Settings) {
+				AutoStart = !err;
+				for (var key in settings) {
 					$elem = $('[name="' + key + '"]');
 
-					if (typeof Settings[key] === 'boolean')
-						$elem.prop('checked', Settings[key]);
+					if (typeof settings[key] === 'boolean')
+						$elem.prop('checked', settings[key]);
 					else
-						$elem.val(Settings[key]);
+						$elem.val(settings[key]);
 				}
 			});
 
 			function updateAutoStart(value) {
 				if (value) {
 					let target = '/usr/share/applications/ghetto-skype.desktop';
+					console.log('going in');
 					fs.symlink(target, autostartFile, (err) => {
 						if (err) {
 							// If file doesn't exist, this is a permission issue
@@ -192,7 +182,11 @@
 						}
 					});
 				} else {
-					fs.unlink(autostartFile);
+					try {
+						fs.unlinkSync(autostartFile);
+					} catch(e) {
+
+					}
 				}
 			}
 
@@ -205,7 +199,7 @@
 					value = Number(value);
 				}
 
-				Settings[name] = value;
+				settings[name] = value;
 			});
 
 			$('.checkbox input').change(function() {
@@ -213,7 +207,10 @@
 				let name  = this.name;
 				let value = $elem.prop('checked');
 
-				Settings[name] = value;
+				if (name !== 'AutoStart')
+					settings[name] = value;
+				else
+					AutoStart = value;
 			});
 
 			$('.secondary.button').click(function() {
@@ -224,10 +221,13 @@
 				$(this).addClass('loading');
 
 				// Add or Remove symlink to auto start
-				updateAutoStart(Settings.AutoStart);
-				delete Settings.AutoStart;
+				updateAutoStart(AutoStart);
 
-				electron.ipcRenderer.send('settings:save', Settings);
+				electron.ipcRenderer.send('set-settings', settings);
+				electron.ipcRenderer.on('settings-saved', () => {
+					$(this).removeClass('loading');
+					window.close();
+				});
 			});
 		</script>
 	</body>
