@@ -48,7 +48,7 @@ exports.setNotificationCount = function(count) {
 };
 
 function toggleOpen() {
-	if (mainWindow.isVisible()) {
+	if (mainWindow.isFocused()) {
 		mainWindow.hide();
 	} else {
 		mainWindow.show();
