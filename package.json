@@ -2,13 +2,26 @@
   "name": "ghetto-skype",
   "author": "Robert Stanfield <robert@stanfield.it>",
   "license": "GPL-3.0",
-  "version": "1.4.1",
-  "description": "Web Skype + Tray Icon + Notifications",
   "private": true,
-  "main": "main.js",
+  "main": "src/main.js",
+  "directories": {
+    "app": "src"
+  },
+  "build": {
+    "asar": false,
+    "dmg": {
+      "icon": "build/icon.icns"
+    },
+    "linux": {
+      "target": "rpm",
+      "category": "Network"
+    }
+  },
   "scripts": {
+    "postinstall": "install-app-deps",
+    "pack": "build --dir",
+    "dist": "build",
     "rebuild": "electron-rebuild -v1.4.8 -f -m src/",
-    "build-linux": "electron-packager ./src --version 1.4.8 --platform linux --icon ./src/assets/tray/skype-big.png --out ./dist --overwrite",
     "start": "electron src/"
   },
   "repository": {
@@ -26,7 +39,7 @@
   "homepage": "https://github.com/stanfieldr/ghetto-skype#readme",
   "devDependencies": {
     "electron": "^1.4.8",
-    "electron-packager": "^8.3.0",
+    "electron-builder": "^8.6.0",
     "electron-rebuild": "^1.4.0"
   }
 }

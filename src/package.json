@@ -1,9 +1,10 @@
 {
   "name": "ghetto-skype",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "main": "./main.js",
   "author": "Robert Stanfield <robert@stanfield.it>",
   "license": "GPL-3.0",
+  "description": "Integrates Web Skype with the Linux desktop",
   "dependencies": {
     "electron-spellchecker": "^0.5.12",
     "mime": "^1.3.4",

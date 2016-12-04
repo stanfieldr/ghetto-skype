@@ -83,6 +83,11 @@
 			document.getElementById('chatInputAreaWithQuotes').focus();
 		});
 
+		window.addEventListener('beforeunload', function() {
+			spellCheckHandler.unsubscribe();
+			contextMenuListener.unsubscribe();
+		});
+
 		spellCheckHandler.attachToInput();
 		spellCheckHandler.switchLanguage('en-US');
 

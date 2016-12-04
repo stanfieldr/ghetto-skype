@@ -1,7 +1,9 @@
-const electron      = require('electron');
-const Settings      = require('./Settings.js');
+const electron = require('electron');
+const Settings = require('./Settings.js');
+const path     = require('path');
+const fs       = require('fs');
+
 const BrowserWindow = electron.BrowserWindow;
-const path = require('path');
 
 let trayIcon       = null;
 let mainWindow     = null;
@@ -109,19 +111,6 @@ let contextMenu = new electron.Menu.buildFromTemplate([
 			});
 
 			settingsWindow.focus();
-
-			if (Settings.get('Theme')) {
-				let folder = path.join(__dirname, 'themes', Settings.get('Theme'));
-				let p = path.join(folder, 'settings.styl');
-				fs.readFile(p, 'utf8', (err, scss) => {
-					stylus(scss)
-						.include(folder)
-						.render((err, css) => {
-							settingsWindow.webContents.once('did-finish-load', () => settingsWindow.webContents.insertCSS(css));
-						});
-				});
-			}
-
 			settingsWindow.on('closed', () => settingsWindow = null);
 
 			let filePath = path.join(__dirname, 'views', 'settings.html');

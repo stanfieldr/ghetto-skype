@@ -100,26 +100,6 @@
 				<tr>
 					<td>
 						<div class="ui toggle checkbox">
-							<input name="Mute" type="checkbox" class="hidden">
-						</div>
-					</td>
-					<td>
-						Mute Skype Notification Sound
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="ui toggle checkbox">
-							<input name="EnableNotifications" type="checkbox" class="hidden">
-						</div>
-					</td>
-					<td>
-						Enable Notifications
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="ui toggle checkbox">
 							<input name="OpenWhenMessaged" type="checkbox" class="hidden">
 						</div>
 					</td>
@@ -226,6 +206,10 @@
 				electron.ipcRenderer.send('set-settings', settings);
 				electron.ipcRenderer.on('settings-saved', () => {
 					$(this).removeClass('loading');
+					let answer = confirm("Some settings require Skype to reload. Hit OK to do so now or Cancel to postpone. You can reload Skype at anytime using the menu found on the tray icon.");
+					if (answer) {
+						electron.ipcRenderer.send('reload-skype');
+					}
 					window.close();
 				});
 			});

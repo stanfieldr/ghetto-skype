@@ -20,6 +20,7 @@ if (shouldQuit) {
 
 Settings.init();
 
+app.setName('Ghetto Skype');
 app.on('before-quit', () => shouldQuit = true);
 app.on('ready', () => {
 	// Restore the dimensions of main window from the last time it was run
@@ -39,7 +40,6 @@ app.on('ready', () => {
 			partition      : 'persist:skype',
 			preload        : path.join(__dirname, 'skype.js'),
 			nodeIntegration: false,
-			webaudio       : Settings.get('Mute'),
 			zoomFactor     : Settings.get('ZoomFactor')
 		}
 	});
@@ -70,12 +70,14 @@ app.on('ready', () => {
 	mainWindow.loadURL('https://web.skype.com/en');
 });
 
+electron.ipcMain.on('reload-skype', () => {
+	mainWindow.reload();
+});
+
 electron.ipcMain.on('open-link', (e, href) => {
 	let protocol = require('url').parse(href).protocol;
 
-	console.log(href, href.indexOf('imgpsh_fullsize') >= 0);
 	if (href.indexOf('imgpsh_fullsize') >= 0) {
-		console.log('Native: ', Settings.get('NativeImageViewer'));
 		if (Settings.get('NativeImageViewer')) {
 			downloadImage(href);
 		} else {
