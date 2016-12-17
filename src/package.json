@@ -1,5 +1,6 @@
 {
   "name": "ghetto-skype",
+  "productName": "Ghetto Skype",
   "version": "1.5.0",
   "main": "./main.js",
   "author": "Robert Stanfield <robert@stanfield.it>",
