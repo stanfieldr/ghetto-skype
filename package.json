@@ -15,7 +15,8 @@
     },
     "linux": {
       "target": "deb",
-      "category": "Network"
+      "category": "Network",
+      "executableName": "ghetto-skype"
     }
   },
   "scripts": {
