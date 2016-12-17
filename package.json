@@ -8,12 +8,13 @@
     "app": "src"
   },
   "build": {
-    "asar": false,
-    "dmg": {
-      "icon": "build/icon.icns"
+    "appId": "it.stanfield.ghetto-sky",
+    "mac": {
+      "category": "public.app-category.social-networking",
+      "target": "dmg"
     },
     "linux": {
-      "target": "rpm",
+      "target": "deb",
       "category": "Network"
     }
   },
