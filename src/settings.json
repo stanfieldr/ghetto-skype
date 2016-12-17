@@ -1,7 +1,7 @@
 {
 	"AltSendKeys": false,
 	"StartMinimized": false,
-	"NativeImageViewer": false,
+	"NativeImageViewer": true,
 	"OpenWhenMessaged": false,
 	"ProxyRules": "",
 	"ZoomFactor": 1.0,
