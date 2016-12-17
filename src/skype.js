@@ -20,17 +20,21 @@
 		setTimeout(function() {
 			$('#chatInputAreaWithQuotes').focus();
 			$('#chatInputAreaWithQuotes').val(tmp + "\n");
-			$('#chatInputAreaWithQuotes').trigger('blur');
+			$('#chatInputAreaWithQuotes').blur();
 			$('#chatInputAreaWithQuotes').focus();
 		}, 0);
 	}
 
 	function interceptKeys(event) {
-		if (settings.AltSendKeys && event.key === "Enter" && !event.ctrlKey && event.target.id === "chatInputAreaWithQuotes") {
+		if (settings.AltSendKeys && event.key === "Enter" && event.target.id === "chatInputAreaWithQuotes") {
+			if (event.ctrlKey) {
+				$('.send-button').click();
+			} else {
 				alternativeEnter();
+			}
 		}
 
-		if (_mode === 'normal' && event.key === "i" && ['textbox', 'input'].indexOf(event.target.type) >= 0) {
+		if (_mode === 'normal' && event.key === "i" && ['textarea', 'input'].indexOf(event.target.type) === -1) {
 			updateMode('insert');
 			event.preventDefault();
 			return;
@@ -48,8 +52,6 @@
 			event.stopImmediatePropagation();
 			return;
 		}
-
-
 	}
 
 	function updateMode(mode) {
