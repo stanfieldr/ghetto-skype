@@ -6,27 +6,58 @@
 	let activityHandle = null;
 	let hasActivity    = false;
 	let settings       = electron.ipcRenderer.sendSync('get-settings');
+	let _mode          = 'normal';
 
 	ipc.on('status-change', (e, status) => {
 		document.querySelector(".PresencePopup-status--" + status).click();
 	});
 
-	function interceptEnterKey(event) {
-		if (settings.AltSendKeys && event.keyCode === 13 && event.target.id === "chatInputAreaWithQuotes") {
-			if (event.ctrlKey) {
-				$('.send').click();
-			} else {
-				// hack to intercept sending message
-				var tmp = $('#chatInputAreaWithQuotes').val();
-				$('#chatInputAreaWithQuotes').val('');
-				$('#chatInputAreaWithQuotes').trigger('blur');
-				setTimeout(function() {
-					$('#chatInputAreaWithQuotes').focus();
-					$('#chatInputAreaWithQuotes').val(tmp + "\n");
-					$('#chatInputAreaWithQuotes').trigger('blur');
-					$('#chatInputAreaWithQuotes').focus();
-				}, 0);
-			}
+	function alternativeEnter() {
+		// hack to intercept sending message
+		var tmp = $('#chatInputAreaWithQuotes').val();
+		$('#chatInputAreaWithQuotes').val('');
+		$('#chatInputAreaWithQuotes').trigger('blur');
+		setTimeout(function() {
+			$('#chatInputAreaWithQuotes').focus();
+			$('#chatInputAreaWithQuotes').val(tmp + "\n");
+			$('#chatInputAreaWithQuotes').trigger('blur');
+			$('#chatInputAreaWithQuotes').focus();
+		}, 0);
+	}
+
+	function interceptKeys(event) {
+		if (settings.AltSendKeys && event.key === "Enter" && !event.ctrlKey && event.target.id === "chatInputAreaWithQuotes") {
+				alternativeEnter();
+		}
+
+		if (_mode === 'normal' && event.key === "i" && ['textbox', 'input'].indexOf(event.target.type) >= 0) {
+			updateMode('insert');
+			event.preventDefault();
+			return;
+		}
+
+		if (_mode === 'normal') {
+			// switch (event.key) {
+			// 	case 'j':
+			// }
+		}
+
+		if (event.key === "Escape") {
+			event.target.blur();
+			updateMode('normal');
+			event.stopImmediatePropagation();
+			return;
+		}
+
+
+	}
+
+	function updateMode(mode) {
+		_mode = mode;
+		$('.ghetto.mode').html(mode);
+
+		if (mode === 'insert') {
+			document.getElementById('chatInputAreaWithQuotes').focus();
 		}
 	}
 
@@ -63,6 +94,9 @@
 	}
 
 	window.addEventListener("DOMContentLoaded", function domLoaded() {
+		document.body.classList.add('ghetto');
+		ipc.send('load-theme');
+
 		// Stop executing JavaScript if they are not logged in
 		if (!document.getElementById('chatInputAreaWithQuotes')) {
 			setTimeout(domLoaded, 1000);
@@ -72,15 +106,30 @@
 		$ = require('./assets/jquery-2.2.3.min');
 		const {SpellCheckHandler, ContextMenuListener, ContextMenuBuilder} = require('electron-spellchecker');
 
+		let chatInput = document.getElementById('chatInputAreaWithQuotes');
 		let spellCheckHandler   = new SpellCheckHandler();
 		let contextMenuBuilder  = new ContextMenuBuilder(spellCheckHandler);
 		let contextMenuListener = new ContextMenuListener((info) => {
 			contextMenuBuilder.showPopupMenu(info);
 		});
 
-		window.addEventListener('keydown', interceptEnterKey, true);
+		window.addEventListener('keydown', interceptKeys, true);
 		window.addEventListener('focus', function(event) {
-			document.getElementById('chatInputAreaWithQuotes').focus();
+			if (event.originalEvent !== null) {
+				chatInput.focus();
+			}
+		});
+
+		chatInput.addEventListener('focus', function(event) {
+			if (event.originalEvent !== null) {
+				updateMode('insert');
+			}
+		});
+
+		chatInput.addEventListener('blur', function(event) {
+			if (event.originalEvent !== null) {
+				updateMode('normal');
+			}
 		});
 
 		window.addEventListener('beforeunload', function() {
@@ -107,6 +156,8 @@
 				ipc.send('open-link', $elem.prop('href'));
 			}
 		}, true);
+
+		document.body.appendChild($('<div class="ghetto mode">normal</div>').get(0));
 	});
 
 }())

@@ -1,0 +1,27 @@
+@import 'colors'
+
+$show_ghetto_mode = false
+$show_topleft_sky = false
+
+:root body.swx.desktop.ghetto
+	:focus
+		outline: none
+
+	// Border between side and right
+	.Me-small:before, .side:before
+		border-right: 1px solid $side_border
+
+	.Me-displayName
+		transition: color 1s;
+
+	.Me:not(.Me--expanded) .Me-info:hover .Me-displayName
+		color: lighten($your_name, 60%)
+
+	.UserSettingsPage-category:focus
+		border: none
+
+	.search .inputField:focus
+		color: $search_text
+
+	.search .inputField:focus::-webkit-input-placeholder
+		color: transparent

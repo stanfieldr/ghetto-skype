@@ -1,0 +1,74 @@
+@import 'theme'
+
+:root .ghetto.mode
+	unless $show_ghetto_mode
+		display: none
+	padding: 0.2em
+	background-color: $background_ghetto_mode
+	font-size: 16px
+	text-align: right
+
+// Increase CSS specificity
+:root body.swx.desktop.ghetto
+	.shellSplashScreen
+		background-color: $background_splashscreen
+
+	.shell.footer
+		box-shadow: none
+		background-color: $background_footer
+		border-top: 1px solid $footer_border
+
+	.contactPickerInput
+		border-bottom 1px solid $footer_border !important
+
+	.Me-sky
+		unless $show_topleft_sky
+			display: none
+
+	.search .splitter
+		background-color $search_splitter
+
+	// Normalize background between avatar and search
+	.side, .Me-skyContainer, .Me-skyContainer:before, .Me-skyContainer:after
+		background-color: $background_sidebar
+
+	.Me:not(.Me--expanded) .Me-displayName
+		color: $your_name
+
+	// The avatar that appears next to people
+	.Avatar
+		background-color: $background_avatar
+
+		&:after // The little circular status icon underneath (online, away, etc)
+			background: $status_checkmark !important
+			color: $background_avatar_status !important
+			border-color: $border_avatar_status !important
+
+	.side .message.active:focus, .side .searchItem.active:focus
+		background-color: $background_active_thread
+
+	.side .message.active, .side .searchItem.active
+		.tileName
+			color: $thread_name_active
+		.message
+			color: $thread_subtitle_active
+		&:before
+			background-color: $background_active_thread
+
+	.side .message:focus, .side .searchItem:focus
+		background-color: $background_hover_thread
+
+	.side .message, .side .searchItem
+		.tileName
+			color $thread_name
+		.message
+			color $thread_subtitle
+		&:before
+			background-color: $background_hover_thread
+
+	.navigation .navItem.icon:not(.active)
+		&:hover, &:focus
+			background-color: $background_nav_buttons_hover
+
+	.navigation .navItem.icon.active
+		background-color: $background_nav_buttons

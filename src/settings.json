@@ -6,5 +6,6 @@
 	"ProxyRules": "",
 	"ZoomFactor": 1.0,
 	"RefreshInterval": 0,
-	"QuitByCloseWindow": false
+	"QuitByCloseWindow": false,
+	"Theme": "default"
 }

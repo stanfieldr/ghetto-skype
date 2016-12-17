@@ -1,5 +1,7 @@
 const electron = require('electron');
+const fs       = require('fs');
 const path     = require('path');
+const stylus   = require('stylus');
 const TrayIcon = require('./tray');
 const Settings = require('./Settings.js');
 
@@ -72,6 +74,33 @@ app.on('ready', () => {
 
 electron.ipcMain.on('reload-skype', () => {
 	mainWindow.reload();
+});
+
+function injectStylus(theme) {
+	let themeFolder   = path.join(__dirname, 'themes', theme);
+	let themeSkeleton = path.join(__dirname, 'themes', 'core', 'skype.styl');
+
+	fs.readFile(themeSkeleton, 'utf8', (err, styl) => {
+		if (err) {
+			console.error('Error:', err);
+			return;
+		}
+
+		stylus(styl)
+			.include(themeFolder)
+			.render((err, css) => {
+				if (err) {
+					console.error('Error:', err);
+					return;
+				}
+
+				mainWindow.webContents.insertCSS(css)
+			});
+	});
+}
+
+electron.ipcMain.on('load-theme', () => {
+	injectStylus(Settings.get('Theme'));
 });
 
 electron.ipcMain.on('open-link', (e, href) => {

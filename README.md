@@ -4,7 +4,7 @@ Ghetto Skype is an electron client that uses Web Skype to better integrate with 
 
 Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unofficial-client) for coming up with this idea. His version uses node webkit whereas mine uses Electron. This means you get a few extra goodies like notifications from Electron.
 
-![Screenshot](assets/screenshot.png)
+![Screenshot](src/assets/screenshot.png)
 
 ## Why it's better than Web Skype
 - Tray Icon indicates you have unread messages
