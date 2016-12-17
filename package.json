@@ -1,5 +1,6 @@
 {
   "name": "ghetto-skype",
+  "productName": "Ghetto Skype",
   "author": "Robert Stanfield <robert@stanfield.it>",
   "license": "GPL-3.0",
   "private": true,
@@ -22,7 +23,6 @@
     "postinstall": "install-app-deps",
     "pack": "build --dir",
     "dist": "build",
-    "rebuild": "electron-rebuild -v1.4.8 -f -m src/",
     "start": "electron src/"
   },
   "repository": {
@@ -39,8 +39,8 @@
   },
   "homepage": "https://github.com/stanfieldr/ghetto-skype#readme",
   "devDependencies": {
-    "electron": "^1.4.8",
-    "electron-builder": "^8.6.0",
+    "electron": "^1.4.12",
+    "electron-builder": "^10.8.1",
     "electron-rebuild": "^1.4.0"
   }
 }

@@ -35,7 +35,8 @@ You need a newer version of node/npm installed. If you already have node install
 $ sudo dnf install rpm-build
 
 # To build a DEB you need this:
-$ sudo apt-get install fakeroot dpkg
+$ sudo apt-get install fakeroot dpkg icnsutils graphicsmagick xz-utils build-essential
+
 ```
 
 #### Try it out
