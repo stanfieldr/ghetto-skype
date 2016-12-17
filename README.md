@@ -1,21 +1,22 @@
-# Ghetto Skype
-Are you tired of a buggy 32 bit official Skype client? Then Ghetto Skype is for you!
+# GPLSky
+
+GPLSky is an electron client that uses Web Skype to better integrate with desktop environments found on Linux.
 
 Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unofficial-client) for coming up with this idea. His version uses node webkit whereas mine uses Electron. This means you get a few extra goodies like notifications from Electron.
 
 ![Screenshot](assets/screenshot.png)
 
-## Features
-- Tray Icon turns red if you have unread messages
-- Native notifications from Web Skype via Electron
-- Native Image Viewer can be used for previewing images
+## Why it's better than Web Skype
+- Tray Icon indicates you have unread messages
+- Electron will send notifications to notifyd
+- Use your default image viewer (writes to /tmp)
 - Start minimized when you start your computer
 - Run Skype through a proxy
-- Auto login through Microsoft Account
-- Ability to make audio calls
+- Alternative themes
+- Alternative keyboard shortcuts
 
 ### Cons
-- Video calls do not work and you have to initiate the audio call (if they call you, it wants you to install plugin). I'm currently looking at options to get around this.
+- I haven't figured out how to get video calls to work yet
 
 ## Installing
 
@@ -39,37 +40,26 @@ $ sudo apt-get install fakeroot dpkg
 
 #### Try it out
 
-You can take it for a test run without installing by opening a terminal, navigating to this directory, and typing:
+Skip packaging and run this:
 ```bash
-[u@h ghetto-skype]$ npm install && npm start
+[u@h gplsky]$ npm install && npm start
 ```
 
 #### Setup
 
+We use electron-builder to create the package type. Change the target to the
+format you prefer. By default, it uses "snap". For a full list, refer to the [wiki](https://github.com/electron-userland/electron-builder/wiki/Options#buildlinux) for electron-builder.
+The target should be set in `gplsky/package.json`
+
 ```bash
-[u@h ghetto-skype]$ npm install -g grunt
-[u@h ghetto-skype]$ npm install
-[u@h ghetto-skype]$ grunt rpm # makes package for rpm distros
-[u@h ghetto-skype]$ grunt deb # makes package for deb distros
-
-# After packages built they will be located here...
-[u@h ghetto-skype]$ cd dist && ls
+[u@h gplsky]$ npm run dist
+[u@h gplsky]$ cd dist && ls # packages located here
 ```
-
-If your distro does not use RPM or DEB packages, you can build it like so:
-```bash
-[u@h ghetto-skype]$ grunt # Creates the build
-
-# Example of possible steps to do with your build:
-[root@h ghetto-skype]# cp -r build/Ghetto* /opt/ghetto-skype
-[root@h ghetto-skype]# ln -s /opt/ghetto-skype/assets/skype.desktop /usr/share/applications/ghetto-skype.desktop
-```
-The build is placed in the build directory and then by cpu type. By default it detects 32/64 bit based on the system you build the package with. However, you can modify `Gruntfile.js` accordingly if need be.
 
 ## Using a Proxy
 
 There currently isn't a way to edit this with the settings window right now. You can open `~/.config/Ghetto\ Skype/settings.json` with your favorite text editor and add your proxy to the ProxyRule setting, save, and restart
-Ghetto Skype.
+Ghetto Skype. For a better understanding of the format please refer to Electron's [wiki](https://github.com/electron/electron/blob/master/docs/api/session.md#instance-methods) (specifically ses.setProxy)
 
 Example:
 ```bash
@@ -98,4 +88,4 @@ Example 150%:
 ```
 
 ## Disclaimer
-The Skype name, associated trade marks and logos and the "S" logo are trade marks of Skype or related entities.
+The Skype name, associated trade marks and logos and the "S" logo are trade marks of Skype or related entities. This project is merely a browser :)
