@@ -1,6 +1,6 @@
-# GPLSky
+# Ghetto Skype
 
-GPLSky is an electron client that uses Web Skype to better integrate with desktop environments found on Linux.
+Ghetto Skype is an electron client that uses Web Skype to better integrate with desktop environments found on Linux.
 
 Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unofficial-client) for coming up with this idea. His version uses node webkit whereas mine uses Electron. This means you get a few extra goodies like notifications from Electron.
 
@@ -13,7 +13,6 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 - Start minimized when you start your computer
 - Run Skype through a proxy
 - Alternative themes
-- Alternative keyboard shortcuts
 
 ### Cons
 - I haven't figured out how to get video calls to work yet
@@ -43,18 +42,19 @@ $ sudo apt-get install fakeroot dpkg icnsutils graphicsmagick xz-utils build-ess
 
 Skip packaging and run this:
 ```bash
-[u@h gplsky]$ npm install && npm start
+[u@h ghetto-skype]$ npm install && npm start
 ```
 
 #### Setup
 
-We use electron-builder to create the package type. Change the target to the
-format you prefer. By default, it uses "snap". For a full list, refer to the [wiki](https://github.com/electron-userland/electron-builder/wiki/Options#buildlinux) for electron-builder.
-The target should be set in `gplsky/package.json`
+We use electron-builder to package Ghetto Skype. Change the target to the
+format you prefer. By default, it uses "deb". For a full list of supported formats,
+refer to the [wiki](https://github.com/electron-userland/electron-builder/wiki/Options#buildlinux) for electron-builder.
+The target should be set in `ghetto-skype/package.json`
 
 ```bash
-[u@h gplsky]$ npm run dist
-[u@h gplsky]$ cd dist && ls # packages located here
+[u@h ghetto-skype]$ npm run dist
+[u@h ghetto-skype]$ cd dist && ls # package placed here
 ```
 
 ## Using a Proxy
