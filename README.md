@@ -57,6 +57,10 @@ The target should be set in `ghetto-skype/package.json`
 [u@h ghetto-skype]$ cd dist && ls # package placed here
 ```
 
+## Tips
+
+There's a separate settings window located in the context menu of the tray icon.
+
 ## Using a Proxy
 
 There currently isn't a way to edit this with the settings window right now. You can open `~/.config/Ghetto\ Skype/settings.json` with your favorite text editor and add your proxy to the ProxyRule setting, save, and restart
