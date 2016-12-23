@@ -27,16 +27,16 @@ created. Please send any issues with the AUR package to [his repository](https:/
 
 #### Dependencies
 
-You need a newer version of node/npm installed. If you already have node installed, please check that you are using version 6.3.1 or higher. If you have an older version installed or need to install it, I recommend installing [nvm](https://github.com/creationix/nvm) so you are not dependent on your distros version of node as it may be too old. If you are installing node via Debian based distro, please make sure you install the nodejs-legacy package.
-
-```bash
-# To build a RPM you need this:
-$ sudo dnf install rpm-build
-
-# To build a DEB you need this:
-$ sudo apt-get install fakeroot dpkg icnsutils graphicsmagick xz-utils build-essential
-
-```
+If building from source:
+- Node 6.3.1 or higher (Debian/Ubuntu/Mint users need nodejs-legacy package)
+- GCC C++ Compiler
+	- Debian based: `sudo apt-get install build-essential`
+	- Fedora: `sudo dnf install gcc{,-c++}`
+- GraphicsMagick and libicns-utils:
+  - Debian based: `sudo apt-get install icnsutils graphicsmagick xz-utils`
+  - Fedora: `sudo dnf install libicns-utils GraphicsMagick`
+- If installing RPM: `sudo dnf install rpm-build`
+- If installing DEB: `sudo apt-get install fakeroot dpkg`
 
 #### Try it out
 
@@ -53,6 +53,7 @@ refer to the [wiki](https://github.com/electron-userland/electron-builder/wiki/O
 The target should be set in `ghetto-skype/package.json`
 
 ```bash
+[u@h ghetto-skype]$ npm install
 [u@h ghetto-skype]$ npm run dist
 [u@h ghetto-skype]$ cd dist && ls # package placed here
 ```
