@@ -106,12 +106,11 @@
 		}
 
 		$ = require('./assets/jquery-2.2.3.min');
-		const {SpellCheckHandler, ContextMenuListener, ContextMenuBuilder} = require('electron-spellchecker');
-
+		const spellcheck = require('electron-spellchecker');
 		let chatInput = document.getElementById('chatInputAreaWithQuotes');
-		let spellCheckHandler   = new SpellCheckHandler();
-		let contextMenuBuilder  = new ContextMenuBuilder(spellCheckHandler);
-		let contextMenuListener = new ContextMenuListener((info) => {
+		let spellCheckHandler   = new spellcheck.SpellCheckHandler();
+		let contextMenuBuilder  = new spellcheck.ContextMenuBuilder(spellCheckHandler);
+		let contextMenuListener = new spellcheck.ContextMenuListener((info) => {
 			contextMenuBuilder.showPopupMenu(info);
 		});
 
