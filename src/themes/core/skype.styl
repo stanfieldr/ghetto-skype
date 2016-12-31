@@ -51,7 +51,7 @@
 		.tileName
 			color: $thread_name_active
 		.message
-			color: $thread_subtitle_active
+			color: $thread_subtitle_active !important
 		&:before
 			background-color: $background_active_thread
 
@@ -62,9 +62,13 @@
 		.tileName
 			color $thread_name
 		.message
-			color $thread_subtitle
+			color $thread_subtitle !important
 		&:before
 			background-color: $background_hover_thread
+
+	.side .recent.message, .side .recent.message:hover, .side .recent.message:hover, .side .recent.message.active:hover
+		.counter .circle:before
+			background-color: transparent !important
 
 	.navigation .navItem.icon:not(.active)
 		&:hover, &:focus
