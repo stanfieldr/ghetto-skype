@@ -72,6 +72,53 @@ app.on('ready', () => {
 
 	mainWindow.webContents.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
 	mainWindow.loadURL('https://web.skype.com/en');
+
+	// Check if we are on a MAC
+	if (process.platform === 'darwin') {
+		// Load the Menu class from electron
+		const {Menu} = electron;
+
+		// Create our menu entries so that we can use MAC shortcuts
+		Menu.setApplicationMenu(Menu.buildFromTemplate([
+			{
+				label: "Application",
+				submenu: [
+					{ label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
+				]
+			}, {
+				label: 'Edit',
+				submenu: [
+					{
+						role: 'undo'
+					},
+					{
+						role: 'redo'
+					},
+					{
+						type: 'separator'
+					},
+					{
+						role: 'cut'
+					},
+					{
+						role: 'copy'
+					},
+					{
+						role: 'paste'
+					},
+					{
+						role: 'pasteandmatchstyle'
+					},
+					{
+						role: 'delete'
+					},
+					{
+						role: 'selectall'
+					}
+				]
+			}
+		]));
+	}
 });
 
 electron.ipcMain.on('reload-skype', () => {
