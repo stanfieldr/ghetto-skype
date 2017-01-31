@@ -46,6 +46,8 @@ app.on('ready', () => {
 		}
 	});
 
+	mainWindow.webContents.openDevTools();
+
 	if (Settings.get('ProxyRules')) {
 		mainWindow.webContents.session.setProxy({
 			proxyRules: Settings.get('ProxyRules')
