@@ -42,5 +42,8 @@
     "electron": "^1.4.13",
     "electron-builder": "^10.15.1",
     "electron-rebuild": "^1.4.0"
+  },
+  "dependencies": {
+    "arrive": "^2.3.1"
   }
 }
