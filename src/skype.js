@@ -95,6 +95,16 @@
 		hasActivity = false;
 	}
 
+	function removeEmojisFromChat() {
+		var el = $(this);
+
+		if (el.parents('.conversationHistory').length) {
+			var emoji = $('canvas', el);
+			el.replaceWith(emoji.text());
+		}
+
+	}
+
 	window.addEventListener("DOMContentLoaded", function domLoaded() {
 		document.body.classList.add('ghetto');
 		ipc.send('load-theme');
@@ -106,6 +116,13 @@
 		}
 
 		$ = require('./assets/jquery-2.2.3.min');
+
+		if (settings.DisableEmojis) {
+			$arrive = require('arrive');
+			$('.chatContainer').find('span.emoticon').each(removeEmojisFromChat);
+			document.getElementsByClassName('chatContainer').arrive('span.emoticon', removeEmojisFromChat);
+		}
+
 		const spellcheck = require('electron-spellchecker');
 		let chatInput = document.getElementById('chatInputAreaWithQuotes');
 		let spellCheckHandler   = new spellcheck.SpellCheckHandler();
