@@ -103,7 +103,7 @@ let contextMenu = new electron.Menu.buildFromTemplate([
 				autoHideMenuBar: true,
 				center: true,
 				width : 900,
-				height: 625,
+				height: 645,
 				parent: mainWindow,
 				webPreferences: {
 					zoomFactor: Settings.get('ZoomFactor')

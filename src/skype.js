@@ -1,7 +1,6 @@
 (function() {
 	const electron = require('electron');
 	const ipc      = electron.ipcRenderer;
-	const arrive   = require('arrive');
 
 	let $;
 	let activityHandle = null;
@@ -96,10 +95,14 @@
 		hasActivity = false;
 	}
 
-	function removeEmojis() {
+	function removeEmojisFromChat() {
 		var el = $(this);
-		var emoji = $('canvas', el);
-		el.replaceWith(emoji.text());
+
+		if (el.parents('.conversationHistory').length) {
+			var emoji = $('canvas', el);
+			el.replaceWith(emoji.text());
+		}
+
 	}
 
 	window.addEventListener("DOMContentLoaded", function domLoaded() {
@@ -114,9 +117,11 @@
 
 		$ = require('./assets/jquery-2.2.3.min');
 
-		$('.conversationHistory').find('span.emoticon').each(removeEmojis);
-		document.getElementsByClassName('conversationHistory').arrive('span.emoticon', removeEmojis);
-
+		if (settings.DisableEmojis) {
+			$arrive = require('arrive');
+			$('.chatContainer').find('span.emoticon').each(removeEmojisFromChat);
+			document.getElementsByClassName('chatContainer').arrive('span.emoticon', removeEmojisFromChat);
+		}
 
 		const spellcheck = require('electron-spellchecker');
 		let chatInput = document.getElementById('chatInputAreaWithQuotes');
