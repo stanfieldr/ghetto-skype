@@ -53,9 +53,9 @@ exports.setNotificationCount = function(count) {
 	if (count === lastCount) {
 		return;
 	}
-	
+
 	let image = nativeImage.createFromPath(iconPath);
-	
+
 	if (count > 0) {
 		image = setTrayCount(count);
 		mainWindow.flashFrame(true);
