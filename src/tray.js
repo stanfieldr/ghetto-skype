@@ -2,33 +2,62 @@ const electron = require('electron');
 const Settings = require('./Settings.js');
 const path     = require('path');
 const fs       = require('fs');
+const nativeImage = require('electron').nativeImage;
+const Canvas = require('canvas');
 
 const BrowserWindow = electron.BrowserWindow;
 
 let trayIcon       = null;
 let mainWindow     = null;
 let settingsWindow = null;
-let basePath       = null;
+let iconPath       = null;
 let lastCount      = 0;
+
+
 
 exports.init = function(window) {
 	mainWindow = window;
-	basePath   = electron.app.getAppPath() + '/assets/tray/';
-	trayIcon   = new electron.Tray(`${basePath}skype24.png`);
-
+	iconPath   = electron.app.getAppPath() + '/assets/tray/skype24.png';
+	trayIcon   = new electron.Tray(iconPath);
 	trayIcon.on('click', toggleOpen);
 	trayIcon.setToolTip('Ghetto Skype');
 	trayIcon.setContextMenu(contextMenu);
 };
 
+function setTrayCount(count) {
+	let image = nativeImage.createFromPath(iconPath);
+	var data = image.toDataURL();
+	let htmlImage = new Canvas.Image(image.getSize().width, image.getSize().height);
+	htmlImage.src = data;
+	let canvas = new Canvas(htmlImage.width, htmlImage.height);
+	let ctx = canvas.getContext('2d');
+	ctx.drawImage(htmlImage, 0, 0);
+	x = canvas.width / 3 * 2;
+	y = canvas.height / 3 * 2;
+	radius = canvas.width / 3;
+	ctx.fillStyle = '#ffa200';
+	ctx.beginPath();
+	ctx.arc(x, y, radius, 0, Math.PI * 2, true);
+	ctx.closePath();
+	ctx.fill();
+	ctx.textAlign = "center";
+	ctx.fillStyle = '#000000';
+	ctx.font = "bold " + (radius + 2) + "px Sans";
+	ctx.fillText(count, x, y + 4);
+	data = canvas.toDataURL();
+	image = nativeImage.createFromDataURL(data);
+	return image;
+}
+
 exports.setNotificationCount = function(count) {
 	if (count === lastCount) {
 		return;
 	}
-
-	let image = basePath;
+	
+	let image = nativeImage.createFromPath(iconPath);
+	
 	if (count > 0) {
-		image += 'skype24-1.png';
+		image = setTrayCount(count);
 		mainWindow.flashFrame(true);
 		if (Settings.get('OpenWhenMessaged')) {
 			mainWindow.show();
@@ -36,7 +65,6 @@ exports.setNotificationCount = function(count) {
 		}
 	} else {
 		mainWindow.flashFrame(false);
-		image += 'skype24.png';
 	}
 
 	trayIcon.setImage(image);
