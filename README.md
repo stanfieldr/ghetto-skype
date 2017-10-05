@@ -7,8 +7,9 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 ![Screenshot](src/assets/screenshot.png)
 
 ## Why it's better than Web Skype
-- Tray Icon indicates you have unread messages
-- Electron will send notifications to notifyd
+- Spell Check
+- Tray Icon shows how many messages are unread (if your desktop environment supports)
+- Electron will send notifications to libnotify
 - Use your default image viewer (writes to /tmp)
 - Start minimized when you start your computer
 - Run Skype through a proxy
