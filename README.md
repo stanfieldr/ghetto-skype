@@ -15,7 +15,7 @@ Credit to [skype-unofficial-client](https://github.com/haskellcamargo/skype-unof
 - Alternative themes
 
 ### Cons
-- I haven't figured out how to get video calls to work yet
+- Doesn't support video calls
 
 ## Installing
 
@@ -52,7 +52,7 @@ Skip packaging and run this:
 
 We use electron-builder to package Ghetto Skype. Change the target to the
 format you prefer. By default, it uses "deb". For a full list of supported formats,
-refer to the [wiki](https://github.com/electron-userland/electron-builder/wiki/Options#buildlinux) for electron-builder.
+refer to the [wiki](https://www.electron.build/configuration/linux) for electron-builder.
 The target should be set in `ghetto-skype/package.json`
 
 ```bash
