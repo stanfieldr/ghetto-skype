@@ -37,7 +37,7 @@ If building from source:
   - Debian based: `sudo apt-get install icnsutils graphicsmagick xz-utils`
   - Fedora: `sudo dnf install libicns-utils GraphicsMagick`
 - X11 devel packages:
-	- Debian based: `sudo apt-get install libxkbfile-dev libx11-dev`
+	- Debian based: `sudo apt-get install libxkbfile-dev libx11-dev libcairo2-dev libjpeg-dev`
 	- Fedora: `sudo dnf install libX11-devel libxkbfile-devel libjpeg-turbo-devel cairo-devel giflib-devel`
 - If installing RPM: `sudo dnf install rpm-build`
 - If installing DEB: `sudo apt-get install fakeroot dpkg`
