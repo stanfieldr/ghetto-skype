@@ -4,11 +4,11 @@
   "license": "GPL-3.0",
   "private": true,
   "main": "src/main.js",
-  "directories": {
-    "app": "src"
-  },
   "build": {
     "appId": "it.stanfield.ghetto-sky",
+		"directories": {
+	    "app": "src"
+	  },
     "mac": {
       "category": "public.app-category.social-networking",
       "target": "dmg"
@@ -20,9 +20,9 @@
     }
   },
   "scripts": {
-    "postinstall": "install-app-deps",
-    "pack": "build --dir",
-    "dist": "build",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
     "start": "electron src/"
   },
   "repository": {
@@ -39,8 +39,7 @@
   },
   "homepage": "https://github.com/stanfieldr/ghetto-skype#readme",
   "devDependencies": {
-    "electron": "^1.4.13",
-    "electron-builder": "^10.15.1",
-    "electron-rebuild": "^1.4.0"
+    "electron": "^1.7.8",
+    "electron-builder": "^19.34.1"
   }
 }
