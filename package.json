@@ -6,9 +6,9 @@
   "main": "src/main.js",
   "build": {
     "appId": "it.stanfield.ghetto-sky",
-		"directories": {
-	    "app": "src"
-	  },
+    "directories": {
+      "app": "src"
+    },
     "mac": {
       "category": "public.app-category.social-networking",
       "target": "dmg"
