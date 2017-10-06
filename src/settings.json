@@ -1,11 +1,11 @@
 {
-	"AltSendKeys": false,
-	"StartMinimized": false,
+	"AltSendKeys"      : false,
+	"StartMinimized"   : false,
 	"NativeImageViewer": true,
-	"OpenWhenMessaged": false,
-	"ProxyRules": "",
-	"ZoomFactor": 1.0,
-	"RefreshInterval": 0,
+	"OpenWhenMessaged" : false,
+	"ProxyRules"       : "",
+	"ZoomFactor"       : 1.0,
+	"RefreshInterval"  : 0,
 	"QuitByCloseWindow": false,
-	"Theme": "default"
+	"Theme"            : "default"
 }

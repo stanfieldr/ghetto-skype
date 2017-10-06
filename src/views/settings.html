@@ -136,7 +136,8 @@
 			let autostartFile = os.homedir() + "/.config/autostart/ghetto-skype.desktop";
 
 			fs.access(autostartFile, fs.F_OK, (err) => {
-				AutoStart = !err;
+				$('[name="AutoStart"]').prop('checked', AutoStart = !err);
+
 				for (var key in settings) {
 					$elem = $('[name="' + key + '"]');
 
@@ -148,27 +149,36 @@
 			});
 
 			function updateAutoStart(value) {
-				if (value) {
-					let target = '/usr/share/applications/ghetto-skype.desktop';
-					console.log('going in');
-					fs.symlink(target, autostartFile, (err) => {
-						if (err) {
-							// If file doesn't exist, this is a permission issue
-							fs.access(autostartFile, fs.F_OK, (err) => {
-								if (err) {
-									alert("Ghetto Skype does not have permission to write to " + autostartFile);
-									$elem.prop('checked', !value);
-								}
-							});
-						}
-					});
-				} else {
-					try {
-						fs.unlinkSync(autostartFile);
-					} catch(e) {
+				return new Promise(function(resolve, reject) {
+					if (value) {
+						let target = '/usr/share/applications/ghetto-skype.desktop';
+						fs.symlink(target, autostartFile, (err) => {
+							if (err) {
+								// If file doesn't exist, this is a permission issue
+								fs.access(autostartFile, fs.F_OK, (err) => {
+									if (err) {
+										let message = "Ghetto Skype does not have permission to write to " + autostartFile;
+										$elem.prop('checked', !value);
+										reject(message);
+										return;
+									}
 
+									reject('IO Error creating symlink.' + err);
+								});
+							} else {
+								resolve();
+							}
+						});
+					} else {
+						try {
+							fs.unlinkSync(autostartFile);
+						} catch(e) {
+
+						}
+
+						resolve();
 					}
-				}
+				});
 			}
 
 			$('.checkbox').checkbox();
@@ -199,20 +209,25 @@
 			});
 
 			$('.primary.button').click(function() {
+				let self = this;
 				$(this).addClass('loading');
 
 				// Add or Remove symlink to auto start
-				updateAutoStart(AutoStart);
-
-				electron.ipcRenderer.send('set-settings', settings);
-				electron.ipcRenderer.on('settings-saved', () => {
-					$(this).removeClass('loading');
-					let answer = confirm("Some settings require Skype to reload. Hit OK to do so now or Cancel to postpone. You can reload Skype at anytime using the menu found on the tray icon.");
-					if (answer) {
-						electron.ipcRenderer.send('reload-skype');
-					}
-					window.close();
-				});
+				updateAutoStart(AutoStart)
+					.then(function() {
+						electron.ipcRenderer.send('set-settings', settings);
+						electron.ipcRenderer.on('settings-saved', () => {
+							let answer = confirm("Some settings require Skype to reload. Hit OK to do so now or Cancel to postpone. You can reload Skype at anytime using the menu found on the tray icon.");
+							if (answer) {
+								electron.ipcRenderer.send('reload-skype');
+							}
+							window.close();
+						});
+					})
+					.catch(alert)
+					.then(function() {
+						$(self).removeClass('loading');
+					});
 			});
 		</script>
 	</body>

@@ -53,9 +53,9 @@ exports.setNotificationCount = function(count) {
 	if (count === lastCount) {
 		return;
 	}
-	
+
 	let image = nativeImage.createFromPath(iconPath);
-	
+
 	if (count > 0) {
 		image = setTrayCount(count);
 		mainWindow.flashFrame(true);
@@ -138,7 +138,9 @@ let contextMenu = new electron.Menu.buildFromTemplate([
 				}
 			});
 
+
 			settingsWindow.focus();
+			//settingsWindow.openDevTools();
 			settingsWindow.on('closed', () => settingsWindow = null);
 
 			let filePath = path.join(__dirname, 'views', 'settings.html');
