@@ -33,12 +33,12 @@
 				alternativeEnter();
 			}
 		}
-
-		if (_mode === 'normal' && event.key === "i" && ['textarea', 'input'].indexOf(event.target.type) === -1) {
-			updateMode('insert');
-			event.preventDefault();
-			return;
-		}
+		// 
+		// if (_mode === 'normal' && event.key === "i" && ['textarea', 'input'].indexOf(event.target.type) === -1) {
+		// 	updateMode('insert');
+		// 	event.preventDefault();
+		// 	return;
+		// }
 
 		if (_mode === 'normal') {
 			// switch (event.key) {
