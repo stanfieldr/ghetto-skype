@@ -30,17 +30,10 @@ created. Please send any issues with the AUR package to [his repository](https:/
 
 If building from source:
 - Node 6.3.1 or higher (Debian/Ubuntu/Mint users need nodejs-legacy package)
-- GCC C++ Compiler
-	- Debian based: `sudo apt-get install build-essential`
-	- Fedora: `sudo dnf install gcc{,-c++}`
-- GraphicsMagick and libicns-utils:
-  - Debian based: `sudo apt-get install icnsutils graphicsmagick xz-utils`
-  - Fedora: `sudo dnf install libicns-utils GraphicsMagick`
-- X11 devel packages:
-	- Debian based: `sudo apt-get install libxkbfile-dev libx11-dev libcairo2-dev libjpeg-dev`
-	- Fedora: `sudo dnf install libX11-devel libxkbfile-devel libjpeg-turbo-devel cairo-devel giflib-devel`
-- If installing RPM: `sudo dnf install rpm-build`
-- If installing DEB: `sudo apt-get install fakeroot dpkg`
+- Debian based distros need the following packages: `sudo apt-get install build-essential icnsutils graphicsmagick xz-utils libxkbfile-dev libx11-dev libcairo2-dev libjpeg-dev libgif-dev`
+- If you're creating deb package: `sudo apt-get install fakeroot dpkg`
+- Fedora users need the following packages: `sudo dnf install gcc{,-c++} libicns-utils GraphicsMagick libX11-devel libxkbfile-devel libjpeg-turbo-devel cairo-devel giflib-devel`
+- If you're creating rpm package: `sudo dnf install rpm-build`
 
 #### Try it out
 
@@ -49,9 +42,9 @@ Skip packaging and run this:
 [u@h ghetto-skype]$ npm install && npm start
 ```
 
-#### Setup
+#### Install from source via package manager
 
-We use electron-builder to package Ghetto Skype. Change the target to the
+We use [electron-builder](https://github.com/electron-userland/electron-builder) to package Ghetto Skype. Change the target to the
 format you prefer. By default, it uses "deb". For a full list of supported formats,
 refer to the [wiki](https://www.electron.build/configuration/linux) for electron-builder.
 The target should be set in `ghetto-skype/package.json`
