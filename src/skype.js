@@ -69,7 +69,11 @@
 
 		for (let i = unreadCounters.length - 1; i >= 0; i--) {
 			try {
-				sum += Number(unreadCounters[i].querySelector('p').textContent);
+                                let isMuted = unreadCounters[i].previousElementSibling.
+                                          classList.contains('notificationsDisabledIndicator');
+                                if (!isMuted) {
+                                    sum += Number(unreadCounters[i].querySelector('p').textContent);
+                                }
 			} catch(e) {
 				// if we're unlucky, unseenNotifications will be removed during the loop
 			}
