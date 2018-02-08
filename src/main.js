@@ -2,6 +2,7 @@ const electron = require('electron');
 const fs       = require('fs');
 const path     = require('path');
 const stylus   = require('stylus');
+const url      = require('url');
 const TrayIcon = require('./tray');
 const Settings = require('./Settings.js');
 
@@ -70,8 +71,9 @@ app.on('ready', () => {
 
 	TrayIcon.init(mainWindow);
 
+        lang=process.env.LANG.substr(0,2);
 	mainWindow.webContents.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
-	mainWindow.loadURL('https://web.skype.com/en');
+	mainWindow.loadURL('file://' + app.getAppPath() + '/assets/load.html?lang=' + lang); // 'https://login.skype.com/login');
 
 	// Check if we are on a MAC
 	if (process.platform === 'darwin') {
@@ -119,6 +121,21 @@ app.on('ready', () => {
 			}
 		]));
 	}
+	const {net} = require('electron')
+	const request = net.request('https://www.skype.com/favicon.ico?t=' + new Date().getTime())
+
+	// Success? We show the live website
+	request.on('response', (response) => {
+  	  console.log('Internet detected. Redirecting to live website');
+	  mainWindow.loadURL('https://login.skype.com/login');
+	});
+
+	// Error? We show the stored html pages
+	request.on('error', (error) => {
+  	  console.log("Internet not detected (" + error + "). Showing the stored html pages.");
+	  mainWindow.loadURL('file://' + app.getAppPath() + '/assets/error.html?lang=' + lang);
+        });
+	request.end();
 });
 
 electron.ipcMain.on('reload-skype', () => {
