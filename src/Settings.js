@@ -1,6 +1,7 @@
 const electron = require('electron');
 const fs       = require('fs');
 const path     = require('path');
+const readline = require('readline');
 
 let settings   = null;
 
@@ -53,7 +54,27 @@ exports.save = function() {
 	});
 };
 
+exports.noHardwareAcceleration = function() {
+    var nhardwareAcceleration = false;
+    var fl = '/etc/applications/ghetto-skype.cfg';
+    if (fs.existsSync(fl)) {
+        console.log("start");
+        var ordissimo_version = process.env['ORDISSIMO_VERSION'];
+        fs.readFileSync(fl).toString().split("\n").forEach(function(line, index, arr) {
+            if (index === arr.length - 1 && line === "") { return; }
+            console.log(index + " " + line);
+            str = line.replace(/[\r\n]/g, '').trim();
+            if ( ordissimo_version === str )
+                nhardwareAcceleration = true;
+
+        });
+        console.log("end");
+    }
+    return nhardwareAcceleration;
+};
+
 electron.ipcMain.on('set-settings', (e, value) => {
 	settings = value;
 	exports.save().then(() => e.sender.send('settings-saved', value));
 })
+

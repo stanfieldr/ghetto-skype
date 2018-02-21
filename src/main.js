@@ -23,6 +23,10 @@ if (shouldQuit) {
 
 Settings.init();
 
+if (Settings.noHardwareAcceleration()) {
+   app.disableHardwareAcceleration();
+}
+
 app.setName('Ghetto Skype');
 app.on('before-quit', () => shouldQuit = true);
 app.on('ready', () => {
