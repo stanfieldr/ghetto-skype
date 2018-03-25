@@ -122,7 +122,7 @@ app.on('ready', () => {
 });
 
 electron.ipcMain.on('reload-skype', () => {
-	mainWindow.reload();
+	mainWindow.loadURL('https://web.skype.com/en');
 });
 
 function injectStylus(theme) {

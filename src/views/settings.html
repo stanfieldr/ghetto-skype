@@ -133,10 +133,13 @@
 			var settings  = electron.ipcRenderer.sendSync('get-settings');
 			var AutoStart = false;
 
+			var AutoStartInitial = null;
+
 			let autostartFile = os.homedir() + "/.config/autostart/ghetto-skype.desktop";
 
 			fs.access(autostartFile, fs.F_OK, (err) => {
-				$('[name="AutoStart"]').prop('checked', AutoStart = !err);
+				AutoStartInitial = AutoStart = !err;
+				$('[name="AutoStart"]').prop('checked', AutoStartInitial);
 
 				for (var key in settings) {
 					$elem = $('[name="' + key + '"]');
@@ -149,13 +152,17 @@
 			});
 
 			function updateAutoStart(value) {
+				if (value === AutoStartInitial) {
+					return Promise.resolve();
+				}
+
 				return new Promise(function(resolve, reject) {
 					if (value) {
 						let target = '/usr/share/applications/ghetto-skype.desktop';
 						fs.symlink(target, autostartFile, (err) => {
 							if (err) {
 								// If file doesn't exist, this is a permission issue
-								fs.access(autostartFile, fs.F_OK, (err) => {
+								fs.access(autostartFile, fs.R_OK, (err) => {
 									if (err) {
 										let message = "Ghetto Skype does not have permission to write to " + autostartFile;
 										$elem.prop('checked', !value);
