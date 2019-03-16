@@ -8,16 +8,16 @@ const Settings = require('./Settings.js');
 const {app} = electron;
 let mainWindow;
 
-let shouldQuit = app.makeSingleInstance(() => {
-	if (mainWindow) {
-		mainWindow.show();
-		mainWindow.focus();
-	}
-});
+let shouldQuit = !app.requestSingleInstanceLock();
 
 if (shouldQuit) {
 	app.quit();
 	return;
+} else {
+	if (mainWindow) {
+		mainWindow.show();
+		mainWindow.focus();
+	}
 }
 
 Settings.init();

@@ -30,9 +30,9 @@ created. Please send any issues with the AUR package to [his repository](https:/
 
 If building from source:
 - Node 6.3.1 or higher (Debian/Ubuntu/Mint users need nodejs-legacy package)
-- Debian based distros need the following packages: `sudo apt-get install build-essential icnsutils graphicsmagick xz-utils libxkbfile-dev libx11-dev libcairo2-dev libjpeg-dev libgif-dev`
+- Debian based distros need the following packages: `sudo apt-get install build-essential icnsutils graphicsmagick xz-utils libxkbfile-dev libx11-dev libcairo2-dev libjpeg-dev libgif-dev libpango1.0-dev librsvg2-dev`
 - If you're creating deb package: `sudo apt-get install fakeroot dpkg`
-- Fedora users need the following packages: `sudo dnf install gcc{,-c++} libicns-utils GraphicsMagick libX11-devel libxkbfile-devel libjpeg-turbo-devel cairo-devel giflib-devel`
+- Fedora users need the following packages: `sudo dnf install gcc{,-c++} libicns-utils GraphicsMagick libX11-devel libxkbfile-devel libjpeg-turbo-devel cairo-devel giflib-devel pango-devel`
 - If you're creating rpm package: `sudo dnf install rpm-build`
 
 #### Try it out

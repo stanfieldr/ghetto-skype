@@ -14,7 +14,7 @@
       "target": "dmg"
     },
     "linux": {
-      "target": "deb",
+      "target": "rpm",
       "category": "Network",
       "executableName": "ghetto-skype"
     }
@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/stanfieldr/ghetto-skype#readme",
   "devDependencies": {
-    "electron": "^1.8.4",
-    "electron-builder": "^20.5.1"
+    "electron": "4.1.*",
+    "electron-builder": "20.39.*"
   }
 }
