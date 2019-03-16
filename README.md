@@ -1,3 +1,7 @@
+# Word of Caution
+
+This project is no longer actively maintained. Pull requests are welcome and if anyone would like to take over this project, please email robert@stanfield.it
+
 # Ghetto Skype
 
 Ghetto Skype is an electron client that uses Web Skype to better integrate with desktop environments found on Linux.
