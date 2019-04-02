@@ -71,7 +71,7 @@ app.on('ready', () => {
 	TrayIcon.init(mainWindow);
 
 	mainWindow.webContents.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36");
-	mainWindow.loadURL('https://web.skype.com/en');
+	mainWindow.loadURL('https://web.skype.com');
 
 	// Check if we are on a MAC
 	if (process.platform === 'darwin') {
